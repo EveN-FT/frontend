@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, IconButton, Tab, Tabs } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import WalletConnect from './WalletConnect';
+// import WalletConnect2 from './wallet/WalletConnect2';
 import Logo from '../images/Logo.ico';
 
 
