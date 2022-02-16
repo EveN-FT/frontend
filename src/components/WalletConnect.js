@@ -1,110 +1,53 @@
-import React, { useState, useEffect } from "react";
-import Web3EthContract from "web3-eth-contract";
-import { useDispatch } from "react-redux";
-import {
-  connectFailed,
-  connectRequest,
-  connectSuccess,
-  updateAccount,
-} from "../redux/blockchainSlice";
-import { useSelector } from "react-redux";
-import CONFIG from "../config";
+import React from 'react';
+import ReactModal from 'react-modal';
 
 const WalletConnect = () => {
-  const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  const [errorOpen, setErrorOpen] = useState(false);
-  const isLoading = useSelector((state) => state.blockchain.loading);
-  const errorMsg = useSelector((state) => state.blockchain.errorMsg);
-  const account = useSelector((state) => state.blockchain.account);
+    const [openModal, setOpenModal] = React.useState(false);
 
-  useEffect(() => {
-    if (errorMsg) {
-      setErrorOpen(true);
-    }
-  }, [errorMsg]);
+    const handleClose = () => {
+        setOpenModal(false);
+        console.log('handle close')
+    };
 
-  const connectToWallet = () => {
-    dispatch(connectRequest());
+    const handleOpen = () => {
+        setOpenModal(true); 
+        console.log('handle open ')
 
-    const { ethereum } = window;
-    const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
-    if (!metamaskIsInstalled) {
-      dispatch(connectFailed("Install Metamask."));
-      return null;
-    }
+    };
 
-    Web3EthContract.setProvider(ethereum);
-
-    const accountsPromise = ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    const networkIdPromise = ethereum.request({
-      method: "net_version",
-    });
-
-    Promise.all([accountsPromise, networkIdPromise])
-      .then((results) => {
-        const [accounts, networkId] = results;
-        console.log("results -", results);
-        if (networkId === CONFIG.NETWORK.ID) {
-          dispatch(
-            connectSuccess({
-              account: accounts[0],
-              smartContract: null,
-            })
-          );
-
-          ethereum.on("accountsChanged", (accounts) => {
-            dispatch(updateAccount(accounts[0]));
-          });
-
-          ethereum.on("chainChanged", () => {
-            window.location.reload();
-          });
-        } else {
-          dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        dispatch(connectFailed("Something went wrong."));
-      });
-  };
-
-  return (
-    <div>
-      <div>
-        {isLoading ? (
-          <span>loading...</span>
-        ) : typeof account === "string" ? (
-          <p>
-            {account.substring(0, 6) +
-              "..." +
-              account.substring(account.length - 4, account.length)}
-          </p>
-        ) : (
-          <button onClick={connectToWallet} variant="contained">
-            Connect
-          </button>
-        )}
-      </div>
-      {/* <div open={errorOpen}> */}
-      {/*   <div> */}
-      {/*     <span>{errorMsg}</span> */}
-      {/*     <button */}
-      {/*       onClick={() => { */}
-      {/*         setErrorOpen(false); */}
-      {/*         dispatch(connectFailed("")); */}
-      {/*       }} */}
-      {/*       variant="contained" */}
-      {/*     > */}
-      {/*       Close */}
-      {/*     </button> */}
-      {/*   </div> */}
-      {/* </div> */}
-    </div>
-  );
+    return (
+        <div>
+            {/* {isLoading ? (
+                <span>loading...</span>
+            ) : typeof account === "string" ? (
+                <p>
+                    {account.substring(0, 6) +
+                        "..." +
+                        account.substring(account.length - 4, account.length)}
+                </p>
+            ) : ( */}
+            <button onClick={handleOpen} variant="contained">
+                {console.log('selected connect')}
+                Connect
+            </button>
+            <ReactModal
+                onClose={handleClose}
+                open={openModal}
+                // style={{
+                //     position: 'absolute',
+                //     border: '2px solid #000',
+                //     backgroundColor: 'gray',
+                //     boxShadow: '2px solid black',
+                //     height: 80,
+                //     width: 240,
+                //     margin: 'auto'
+                // }}
+            >
+                test
+            </ReactModal>
+            {/* )} */}
+        </div>
+    );
 };
 
 export default WalletConnect;
