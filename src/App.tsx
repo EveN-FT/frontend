@@ -21,15 +21,13 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/create" element={<Create />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/create" element={<Create />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
