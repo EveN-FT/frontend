@@ -14,6 +14,7 @@ const WalletConnect = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [errorOpen, setErrorOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const isLoading = useSelector((state) => state.blockchain.loading);
   const errorMsg = useSelector((state) => state.blockchain.errorMsg);
   const account = useSelector((state) => state.blockchain.account);
