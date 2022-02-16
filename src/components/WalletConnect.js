@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, LinearProgress, Dialog, Typography } from "@material-ui/core";
 import Web3EthContract from "web3-eth-contract";
-import Web3 from "web3";
 import { useDispatch } from "react-redux";
-import { connectFailed, connectRequest, connectSuccess, updateAccount } from "../redux/blockchainSlice";
+import {
+  connectFailed,
+  connectRequest,
+  connectSuccess,
+  updateAccount,
+} from "../redux/blockchainSlice";
 import { useSelector } from "react-redux";
-import CONFIG from '../config';
-
-
-
+import CONFIG from "../config";
 
 const WalletConnect = () => {
   const dispatch = useDispatch();
-
-  const [errorOpen, setErrorOpen] = useState(false);
-
   const state = useSelector((state) => state);
-  console.log("state -", state);
-
+  const [errorOpen, setErrorOpen] = useState(false);
   const isLoading = useSelector((state) => state.blockchain.loading);
   const errorMsg = useSelector((state) => state.blockchain.errorMsg);
-  const account = useSelector(state => state.blockchain.account);
+  const account = useSelector((state) => state.blockchain.account);
 
   useEffect(() => {
-    if(errorMsg) {
+    if (errorMsg) {
       setErrorOpen(true);
     }
-  }, [errorMsg])
+  }, [errorMsg]);
 
   const connectToWallet = () => {
     dispatch(connectRequest());
@@ -34,7 +30,7 @@ const WalletConnect = () => {
     const { ethereum } = window;
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (!metamaskIsInstalled) {
-      dispatch(connectFailed('Install Metamask.'))
+      dispatch(connectFailed("Install Metamask."));
       return null;
     }
 
@@ -52,18 +48,20 @@ const WalletConnect = () => {
         const [accounts, networkId] = results;
         console.log("results -", results);
         if (networkId === CONFIG.NETWORK.ID) {
-          dispatch(connectSuccess({
-            account: accounts[0],
-            smartContract: null,
-          }));
+          dispatch(
+            connectSuccess({
+              account: accounts[0],
+              smartContract: null,
+            })
+          );
 
           ethereum.on("accountsChanged", (accounts) => {
-            dispatch(updateAccount(accounts[0]))
+            dispatch(updateAccount(accounts[0]));
           });
 
           ethereum.on("chainChanged", () => {
             window.location.reload();
-          })
+          });
         } else {
           dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
         }
@@ -75,46 +73,37 @@ const WalletConnect = () => {
   };
 
   return (
-    <Box>
-      <Box style={{ width: "190px" }}>
+    <div>
+      <div>
         {isLoading ? (
-          <LinearProgress color="secondary" style={{ height: '6px' }} />
-        ) : (typeof account === "string") ?
-            <p >
-              {account.substring(0, 6) + '...' + account.substring(account.length - 4, account.length)}
-            </p>
-          : (
-            <Button onClick={connectToWallet} variant="contained" style={{ width: '100%' }}>
-              Connect to wallet
-            </Button>
-          )
-        }
-      </Box>
-      <Dialog
-        open={errorOpen}
-      >
-        <Box
-          style={{
-            padding: 20,
-            minWidth: 200
-          }}
-        >
-          <Typography>
-            {errorMsg}
-          </Typography>
-          <Button 
-            onClick={() => {
-              setErrorOpen(false);
-              dispatch(connectFailed(''))
-            }} 
-            style={{ width: '100%', marginTop: 6 }} 
-            variant="contained"
-          >
-            Close
-          </Button>
-        </Box>
-      </Dialog>
-    </Box>
+          <span>loading...</span>
+        ) : typeof account === "string" ? (
+          <p>
+            {account.substring(0, 6) +
+              "..." +
+              account.substring(account.length - 4, account.length)}
+          </p>
+        ) : (
+          <button onClick={connectToWallet} variant="contained">
+            Connect
+          </button>
+        )}
+      </div>
+      {/* <div open={errorOpen}> */}
+      {/*   <div> */}
+      {/*     <span>{errorMsg}</span> */}
+      {/*     <button */}
+      {/*       onClick={() => { */}
+      {/*         setErrorOpen(false); */}
+      {/*         dispatch(connectFailed("")); */}
+      {/*       }} */}
+      {/*       variant="contained" */}
+      {/*     > */}
+      {/*       Close */}
+      {/*     </button> */}
+      {/*   </div> */}
+      {/* </div> */}
+    </div>
   );
 };
 

@@ -1,10 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import Web3 from "web3";
+
+import "./styles/reset.css";
+import "./styles/main.scss";
 // import { Web3ReactProvider } from '@web3-react/core'
 // import { MetaMaskProvider } from './hooks/useMetaMask'
 
