@@ -1,0 +1,27 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1000px;
+  height: 100px;
+  background-color: white;
+  align-items: center;
+  padding-right: 30px;
+  padding-left: 30px;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+      .icon {
+        height: 50px;
+        width: 50px;
+        filter: invert(1);
+      }
+    }
+  }
+}
