@@ -1,15 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { Blockchain } from "./types";
 
-
-const initialState = {
+const initialState: Blockchain = {
   loading: false,
   account: null,
   errorMsg: "",
-}
-
+};
 
 export const blockchainSlice = createSlice({
-  name: 'blockchain',
+  name: "blockchain",
   initialState,
   reducers: {
     connectRequest: (state) => {
@@ -27,9 +26,10 @@ export const blockchainSlice = createSlice({
     updateAccount: (state, action) => {
       state.account = action.payload.account;
     },
-  }
-})
+  },
+});
 
-export const { connectRequest, connectSuccess, connectFailed, updateAccount } = blockchainSlice.actions;
+export const { connectRequest, connectSuccess, connectFailed, updateAccount } =
+  blockchainSlice.actions;
 
 export default blockchainSlice.reducer;
