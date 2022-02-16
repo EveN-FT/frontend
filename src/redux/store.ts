@@ -18,14 +18,14 @@
 
 // export default store;
 
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import blockchainReducer from './blockchainSlice';
+import blockchainReducer from "./blockchainSlice";
 
 const store = configureStore({
   reducer: {
-    blockchain: blockchainReducer
+    blockchain: blockchainReducer,
   },
-})
-
+});
 export default store;
+export type RootState = ReturnType<typeof store.getState>;
