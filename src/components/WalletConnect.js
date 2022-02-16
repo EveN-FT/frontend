@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 
 const WalletConnect = () => {
     const [openModal, setOpenModal] = React.useState(false);
@@ -30,7 +29,7 @@ const WalletConnect = () => {
                 {console.log('selected connect')}
                 Connect
             </button>
-            <ReactModal
+            {/* <p
                 onClose={handleClose}
                 open={openModal}
                 // style={{
@@ -44,7 +43,7 @@ const WalletConnect = () => {
                 // }}
             >
                 test
-            </ReactModal>
+            </p> */}
             {/* )} */}
         </div>
     );

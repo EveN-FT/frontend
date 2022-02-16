@@ -2,6 +2,7 @@ import WalletConnect from "./WalletConnect";
 import "../styles/navbar.scss";
 import ticketIcon from "../assets/ticket-icon.png";
 import Web3ReactConnectionComponent from "./wallet/Web3ReactConnectionComponent";
+import WalletConnectInjectedProvider from "./WalletConnectInjectedProvider";
 
 const NavBar = () => {
   return (

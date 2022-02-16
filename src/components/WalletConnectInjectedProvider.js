@@ -10,7 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import CONFIG from "../config";
 
-const WalletConnect = () => {
+const WalletConnectInjectedProvider = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [errorOpen, setErrorOpen] = useState(false);
@@ -85,26 +85,26 @@ const WalletConnect = () => {
           </p>
         ) : (
           <button onClick={connectToWallet} variant="contained">
-            Connect
+            ConnectInjected
           </button>
         )}
       </div>
-      {/* <div open={errorOpen}> */}
-      {/*   <div> */}
-      {/*     <span>{errorMsg}</span> */}
-      {/*     <button */}
-      {/*       onClick={() => { */}
-      {/*         setErrorOpen(false); */}
-      {/*         dispatch(connectFailed("")); */}
-      {/*       }} */}
-      {/*       variant="contained" */}
-      {/*     > */}
-      {/*       Close */}
-      {/*     </button> */}
-      {/*   </div> */}
-      {/* </div> */}
+      <div open={errorOpen}>
+        <div>
+          <span>{errorMsg}</span>
+          <button
+            onClick={() => {
+              setErrorOpen(false);
+              dispatch(connectFailed(""));
+            }}
+            variant="contained"
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default WalletConnect;
+export default WalletConnectInjectedProvider;
