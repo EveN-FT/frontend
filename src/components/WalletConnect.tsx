@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Web3EthContract from "web3-eth-contract";
+import
+import Web3 from "web3";
 import { useDispatch } from "react-redux";
 import {
   connectFailed,
@@ -56,7 +58,7 @@ const WalletConnect = () => {
             })
           );
 
-          ethereum.on("accountsChanged", (accounts) => {
+          ethereum.on("accountsChanged", (accounts: any) => {
             dispatch(updateAccount(accounts[0]));
           });
 
