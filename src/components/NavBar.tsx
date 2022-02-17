@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ConnectInjected from "./wallet/ConnectInjected";
 import ConnectWalletConnect from "./wallet/ConnectWalletConnect";
 import ConnectCoinbase from "./wallet/ConnectCoinbase";
@@ -14,7 +15,9 @@ const NavBar = () => {
       <div className="navbar">
         <ul>
           <li>
-            <img src={ticketIcon} alt="Ticket icon" className="icon" />
+            <Link to="/">
+              <img src={ticketIcon} alt="Ticket icon" className="icon" />
+            </Link>
           </li>
           <li>
             <button onClick={() => setOpenModal(true)}>Connect</button>
