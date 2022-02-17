@@ -25,3 +25,6 @@ yarn-error.log*
 # Forever clear the yarn package lock for Vercel deployments
 yarn.lock
 packages-lock.json
+
+.env
+.venv
