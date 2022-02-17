@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import useMetaMask from "../../hooks/useMetaMask";
 
-const WalletConnect2 = () => {
+const WalletConnectOnlyMetaMask = () => {
   const { connect, disconnect, isActive, account, shouldDisable } =
     useMetaMask();
 
@@ -21,4 +21,4 @@ const WalletConnect2 = () => {
   );
 };
 
-export default WalletConnect2;
+export default WalletConnectOnlyMetaMask;
