@@ -6,9 +6,9 @@ import {
   connectRequest,
   connectSuccess,
   updateAccount,
-} from "../redux/blockchainSlice";
+} from "../../redux/blockchainSlice";
 import { useSelector } from "react-redux";
-import CONFIG from "../config";
+import CONFIG from "../../config";
 
 const WalletConnectInjectedProvider = () => {
   const dispatch = useDispatch();
