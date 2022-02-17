@@ -20,9 +20,9 @@ const Home = () => {
             <img src={ticketDesign} alt="Ticket design" />
           </div>
         </div>
-        <button>
-          <Link to="/explore">Explore Tickets →</Link>
-        </button>
+        <Link to="/explore">
+          <button>Explore Tickets →</button>
+        </Link>
       </main>
     </>
   );

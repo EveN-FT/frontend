@@ -12,9 +12,9 @@ const NavBar = () => {
       <div className="navbar">
         <ul>
           <li>
-            <div onClick={() => console.log('route to Home')}>
+            <Link to="/">
               <img src={ticketIcon} alt="Ticket icon" className="icon" />
-            </div>
+            </Link>
           </li>
           <li>
             <WalletConnection />
