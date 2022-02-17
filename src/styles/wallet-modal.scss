@@ -56,8 +56,37 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+    #injected {
+      background-image: url("../assets/wallet-icons/metamask.svg");
+      background: url("../assets/wallet-icons/metamask.svg"),
+        linear-gradient(2.27deg, white -1.79%, rgba(255, 255, 255, 0) 58.55%),
+        linear-gradient(
+          113.21deg,
+          rgb(255, 244, 250) 0%,
+          rgb(240, 251, 255) 60.94%,
+          rgb(253, 255, 244) 100%
+        );
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
 
     #wallet-connect {
+      background-image: url("../assets/wallet-icons/wallet-connect.png");
+      background: url("../assets/wallet-icons/wallet-connect.png"),
+        linear-gradient(2.27deg, white -1.79%, rgba(255, 255, 255, 0) 58.55%),
+        linear-gradient(
+          113.21deg,
+          rgb(255, 244, 250) 0%,
+          rgb(240, 251, 255) 60.94%,
+          rgb(253, 255, 244) 100%
+        );
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      padding: 30px;
+    }
+    #walletconnect {
       background-image: url("../assets/wallet-icons/wallet-connect.png");
       background: url("../assets/wallet-icons/wallet-connect.png"),
         linear-gradient(2.27deg, white -1.79%, rgba(255, 255, 255, 0) 58.55%),
@@ -76,6 +105,35 @@
     #coinbase {
       background-image: url("../assets/wallet-icons/coinbase.png");
       background: url("../assets/wallet-icons/coinbase.png"),
+        linear-gradient(2.27deg, white -1.79%, rgba(255, 255, 255, 0) 58.55%),
+        linear-gradient(
+          113.21deg,
+          rgb(255, 244, 250) 0%,
+          rgb(240, 251, 255) 60.94%,
+          rgb(253, 255, 244) 100%
+        );
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    #walletlink {
+      background-image: url("../assets/wallet-icons/coinbase.png");
+      background: url("../assets/wallet-icons/coinbase.png"),
+        linear-gradient(2.27deg, white -1.79%, rgba(255, 255, 255, 0) 58.55%),
+        linear-gradient(
+          113.21deg,
+          rgb(255, 244, 250) 0%,
+          rgb(240, 251, 255) 60.94%,
+          rgb(253, 255, 244) 100%
+        );
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #uauth {
+      background-image: url("../assets/wallet-icons/uauth.png");
+      background: url("../assets/wallet-icons/uauth.png"),
         linear-gradient(2.27deg, white -1.79%, rgba(255, 255, 255, 0) 58.55%),
         linear-gradient(
           113.21deg,
