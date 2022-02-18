@@ -1,15 +1,16 @@
-import type { AbstractConnector } from "@web3-react/abstract-connector";
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
-import { WalletLinkConnector } from "@web3-react/walletlink-connector";
-import { UAuthConnector } from "@uauth/web3-react";
-import { NetworkConnector } from "@web3-react/network-connector";
+import type { AbstractConnector } from '@web3-react/abstract-connector'
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { WalletLinkConnector } from '@web3-react/walletlink-connector';
+import { UAuthConnector } from '@uauth/web3-react'
+import { NetworkConnector } from '@web3-react/network-connector'
 
 const POLLING_INTERVAL = 12000;
 const RPC_URLS = {
-  1: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID!}`,
-  4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_ID!}`,
-  137: `https://polygon-mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`,
+	1: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID!}`,
+	4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_ID!}`,
+	137: `https://polygon-mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`,
+	80001: `https://polygon-mumbai.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`,
 };
 
 export const network = new NetworkConnector({
@@ -19,7 +20,7 @@ export const network = new NetworkConnector({
 
 //metamask
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 4, 137],
+	supportedChainIds: [1, 4, 137, 80001]
 });
 
 //TODO: fix walletconnect bc it aint working
@@ -49,9 +50,9 @@ export function resetWalletConnector(connector: WalletConnectConnector) {
 
 //coinbase wallet
 export const walletlink = new WalletLinkConnector({
-  url: RPC_URLS[137],
-  appName: "EveN-FT",
-  supportedChainIds: [1, 4, 137],
+	url: RPC_URLS[137],
+	appName: 'EveN-FT',
+	supportedChainIds: [1, 4, 137, 80001]
 });
 
 //unstoppable domains

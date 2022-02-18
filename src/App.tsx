@@ -12,6 +12,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/event/:address" element={<EventDetail />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/eventdetails" element={<EventDetails />} />
       </Routes>
     </BrowserRouter>
   );
