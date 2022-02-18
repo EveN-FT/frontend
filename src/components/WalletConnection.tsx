@@ -4,10 +4,12 @@ import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import connectors from "./wallet/connectors";
 import "../styles/navbar.scss";
 import "../styles/wallet-modal.scss";
+import useConnector from "../hooks/useConnector";
 
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
-  const { active, account, activate, deactivate } = useWeb3React();
+  // const { active, account, activate, deactivate } = useWeb3React();
+  const { isActive, account, connect, disconnect } = useConnector();
 
   function createConnectHandler(connectorId: string) {
     return async () => {
