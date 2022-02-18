@@ -5,7 +5,7 @@ import { Event } from "./EventDetail";
 import eventImage from "../assets/placeholders/event-image.jpeg";
 import "../styles/explore.scss";
 
-const events: Event[] = [
+export const events: Event[] = [
   {
     address: "0x37121F74d25262011AdD8cc8D13E6923AEb699d8",
     name: "Deadmau5",

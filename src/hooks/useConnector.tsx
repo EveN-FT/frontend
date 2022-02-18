@@ -1,16 +1,24 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, Props } from "react";
 import {
   injected,
   walletconnect,
   resetWalletConnector,
-  walletLink,
+  walletlink,
   network,
 } from "../components/wallet/connectors";
 import { useWeb3React } from "@web3-react/core";
 
-export const ConnectorContext = React.createContext(null);
+interface Store {
+  isActive: boolean;
+  isLoading: boolean;
+  account: string | null | undefined;
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
+}
 
-export const ConnectorProvider = ({ children }) => {
+export const ConnectorContext = React.createContext<Store>({} as Store);
+
+export const ConnectorProvider = ({ children }: Props<any>) => {
   const { activate, account, library, connector, active, deactivate } =
     useWeb3React();
 
@@ -81,4 +89,3 @@ export default function useConnector() {
 
   return context;
 }
-

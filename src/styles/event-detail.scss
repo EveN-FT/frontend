@@ -1,0 +1,26 @@
+main.event-detail {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 40px;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 1000px;
+  width: 100%;
+
+  h1.title {
+    font-size: 4rem;
+  }
+}
+
+// Desktop
+@media only screen and (min-width: 600px) {
+  main.event-detail {
+  }
+}
+
+// Mobile
+@media only screen and (max-width: 600px) {
+  main.event-detail {
+  }
+}
