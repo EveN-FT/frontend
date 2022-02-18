@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { injected } from '../components/wallet/connectors'
-// import { walletconnect, resetWalletConnector } from "./connectors";
-// import { walletlink } from "./connectors";
+import { injected, walletconnect, resetWalletConnector, walletLink } from '../components/wallet/connectors'
+// import connectors from "./connectors";
 import { useWeb3React } from '@web3-react/core';
 
-export const MetaMaskContext = React.createContext(null)
+export const ConnectorContext = React.createContext(null)
 
-export const MetaMaskProvider = ({ children }) => {
+export const ConnectorProvider = ({ children }) => {
     const { activate, account, library, connector, active, deactivate } = useWeb3React()
 
     const [isActive, setIsActive] = useState(false)
@@ -14,7 +13,7 @@ export const MetaMaskProvider = ({ children }) => {
 
     // Init Loading
     useEffect(() => {
-        connect().then(val => { 
+        connect().then(val => {
             setIsLoading(false)
         })
     }, [])
@@ -27,12 +26,12 @@ export const MetaMaskProvider = ({ children }) => {
         handleIsActive()
     }, [handleIsActive])
 
-    // Connect to MetaMask wallet
+    // Connect to Connector wallet
     const connect = async () => {
-        console.log('Connecting to MetaMask Wallet')
+        console.log('Connecting to Connector Wallet')
         try {
             await activate(injected)
-        } catch(error) {
+        } catch (error) {
             console.log('Error on connecting: ', error)
         }
     }
@@ -42,7 +41,7 @@ export const MetaMaskProvider = ({ children }) => {
         console.log('Deactivating...')
         try {
             await deactivate()
-        } catch(error) {
+        } catch (error) {
             console.log('Error on disconnecting: ', error)
         }
     }
@@ -58,14 +57,14 @@ export const MetaMaskProvider = ({ children }) => {
         [isActive, isLoading]
     )
 
-    return <MetaMaskContext.Provider value={values}>{children}</MetaMaskContext.Provider>
+    return <ConnectorContext.Provider value={values}>{children}</ConnectorContext.Provider>
 }
 
-export default function useMetaMask() {
-    const context = React.useContext(MetaMaskContext)
+export default function useConnector() {
+    const context = React.useContext(ConnectorContext)
 
     if (context === undefined) {
-        throw new Error('useMetaMask hook must be used with a MetaMaskProvider component')
+        throw new Error('useConnector hook must be used with a ConnectorProvider component')
     }
 
     return context

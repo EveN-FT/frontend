@@ -9,6 +9,8 @@ import "./styles/main.scss";
 //multiconnect wallet
 import { Web3ReactProvider } from '@web3-react/core'
 import { ExternalProvider, JsonRpcFetchFunc, Web3Provider } from '@ethersproject/providers';
+import { ConnectorProvider } from "./hooks/useConnector";
+
 const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
   const library = new Web3Provider(provider, 'any');
   library.pollingInterval = 15000;
@@ -17,9 +19,11 @@ const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
 
 ReactDOM.render(
   <Web3ReactProvider getLibrary={getLibrary}>
+     <ConnectorProvider>
     <ReduxProvider store={store}>
       <App />
     </ReduxProvider>
+    </ConnectorProvider>
   </Web3ReactProvider>
   , document.getElementById("root")
 );
