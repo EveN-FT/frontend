@@ -5,14 +5,16 @@ import { Provider as ReduxProvider } from "react-redux";
 import store from "./redux/store";
 import "./styles/reset.css";
 import "./styles/main.scss";
+//multiconnect wallet
 import { Web3ReactProvider } from "@web3-react/core";
 import {
   ExternalProvider,
   JsonRpcFetchFunc,
   Web3Provider,
 } from "@ethersproject/providers";
+import { ConnectorProvider } from "./hooks/useConnector";
 
-export const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
+const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
   const library = new Web3Provider(provider, "any");
   library.pollingInterval = 15000;
   return library;
@@ -20,9 +22,11 @@ export const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
 
 ReactDOM.render(
   <Web3ReactProvider getLibrary={getLibrary}>
-    <ReduxProvider store={store}>
-      <App />
-    </ReduxProvider>
+    <ConnectorProvider>
+      <ReduxProvider store={store}>
+        <App />
+      </ReduxProvider>
+    </ConnectorProvider>
   </Web3ReactProvider>,
   document.getElementById("root")
 );

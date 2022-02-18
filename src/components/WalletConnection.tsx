@@ -8,7 +8,6 @@ import "../styles/wallet-modal.scss";
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
   const { active, account, activate, deactivate } = useWeb3React();
-  const testVar = "metamask";
 
   function createConnectHandler(connectorId: string) {
     return async () => {
