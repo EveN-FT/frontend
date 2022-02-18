@@ -1,40 +1,37 @@
 import { useState } from "react";
-import { useWeb3React } from '@web3-react/core'
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import connectors from './wallet/connectors'
+import { useWeb3React } from "@web3-react/core";
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import connectors from "./wallet/connectors";
 import "../styles/navbar.scss";
 import "../styles/wallet-modal.scss";
 
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
-  const { active, account, activate, deactivate } = useWeb3React()
-  console.log('log connectors: ', connectors)
-  console.info(connectors)
-  console.log(Object.keys(connectors))
-  const testVar = 'metamask'
+  const { active, account, activate, deactivate } = useWeb3React();
+  const testVar = "metamask";
 
   function createConnectHandler(connectorId: string) {
     return async () => {
       try {
-        const connector = connectors[connectorId]
+        const connector = connectors[connectorId];
         if (
           connector instanceof WalletConnectConnector &&
           connector.walletConnectProvider?.wc?.uri
         ) {
-          connector.walletConnectProvider = undefined
+          connector.walletConnectProvider = undefined;
         }
-        await activate(connector)
+        await activate(connector);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    }
+    };
   }
 
   async function handleDisconnect() {
     try {
-      deactivate()
+      deactivate();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
@@ -44,7 +41,7 @@ const WalletConnection = () => {
         <div>Connected to {account}</div>
         <button onClick={handleDisconnect}>Disconnect</button>
       </>
-    )
+    );
   }
 
   return (
@@ -54,8 +51,13 @@ const WalletConnection = () => {
         <div className="wallet-modal" onClick={() => setOpenModal(false)}>
           <div className="close" onClick={() => setOpenModal(false)}></div>
           <div className="button-grid">
-            {Object.keys(connectors).map(v => (
-              <button key={v} onClick={createConnectHandler(v)} className="wallet-icon" id={v}>
+            {Object.keys(connectors).map((v) => (
+              <button
+                key={v}
+                onClick={createConnectHandler(v)}
+                className="wallet-icon"
+                id={v}
+              >
                 Connect to {v}
               </button>
             ))}
@@ -63,7 +65,7 @@ const WalletConnection = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default WalletConnection;

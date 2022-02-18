@@ -27,5 +27,6 @@ const store = configureStore({
     blockchain: blockchainReducer,
   },
 });
+
 export default store;
 export type RootState = ReturnType<typeof store.getState>;
