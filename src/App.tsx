@@ -1,6 +1,6 @@
 import Home from "./routes/Home";
 import Explore from "./routes/Explore";
-import Create from "./routes/Create";
+import Wallet from "./routes/Wallet";
 import EventDetail from "./routes/EventDetail";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 
@@ -11,8 +11,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/event/:address" element={<EventDetail />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/eventdetails" element={<EventDetails />} />
+        <Route path="/wallet" element={<Wallet />} />
+        {/* <Route path="/eventdetail" element={<EventDetail />} /> */}
       </Routes>
     </BrowserRouter>
   );
