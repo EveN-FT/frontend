@@ -23,8 +23,11 @@ const Home = () => {
             <img src={ticketDesign} alt="Ticket design" />
           </div>
         </div>
+        <Link to="/host">
+          <button>Host events →</button>
+        </Link>
         <Link to="/explore">
-          <button>Explore Tickets →</button>
+          <button>Get your tickets →</button>
         </Link>
       </main>
     </>
