@@ -104,6 +104,16 @@ const EventCreate = () => {
     setImage(event.target.files);
   };
 
+  useEffect(() => {
+    async function getbytecode() {
+      var bc = await provider.getCode(
+        "0x537f2A1C7d368FbCAA8395614a482d9ACf4D9d0D"
+      );
+      setbc(bc);
+    }
+    getbytecode();
+  }, []);
+
   return (
     <main className="create-event">
       <span className="close" onClick={() => navigate(-1)}></span>
