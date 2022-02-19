@@ -23,12 +23,14 @@ const Home = () => {
             <img src={ticketDesign} alt="Ticket design" />
           </div>
         </div>
-        <Link to="/host">
-          <button>Host events →</button>
-        </Link>
-        <Link to="/explore">
-          <button>Get your tickets →</button>
-        </Link>
+        <div className="home__cta">
+          <Link to="/host">
+            <button>Host events →</button>
+          </Link>
+          <Link to="/explore">
+            <button>Get your tickets →</button>
+          </Link>
+        </div>
       </main>
     </>
   );
