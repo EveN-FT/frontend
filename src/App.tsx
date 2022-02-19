@@ -1,3 +1,4 @@
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Home from "./routes/Home";
 import Explore from "./routes/Explore";
 
@@ -7,7 +8,6 @@ import EventCreate from "./routes/EventCreate";
 import EventDetail from "./routes/EventDetail";
 import EventMint from "./routes/EventMint";
 import TicketList from "./routes/TicketList";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Host from "./routes/Host";
 
 function App() {
@@ -24,7 +24,6 @@ function App() {
         <Route path="/event/:address/mint" element={<EventMint />} />
         <Route path="/event/new" element={<EventCreate />} />
         <Route path="/host" element={<Host />} />
-
       </Routes>
     </BrowserRouter>
   );
