@@ -18,8 +18,8 @@ body,
       rgb(255, 244, 250) 0%,
       rgb(240, 251, 255) 60.94%,
       rgb(253, 255, 244) 100%
-    );
-  z-index: 1;
+    ),
+    url("../assets/noise.svg");
 }
 
 button {
@@ -47,4 +47,28 @@ button {
 a {
   text-decoration: none;
   color: black;
+}
+
+div {
+  max-width: 100%;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+// Mobile
+@media only screen and (min-width: 400px) {
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+}
+
+// Extra small screens
+@media only screen and (max-width: 400px) {
+  h1 {
+    font-size: 3.4rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
 }

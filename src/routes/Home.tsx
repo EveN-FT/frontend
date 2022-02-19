@@ -8,7 +8,7 @@ import "../styles/home.scss";
 const Home = () => {
   return (
     <>
-      <img className="background" src={background} alt="" />
+      {/* <img className="background" src={background} alt="" /> */}
       <NavBar />
       <main className="home">
         <div className="hero">
