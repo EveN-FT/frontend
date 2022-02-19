@@ -1,0 +1,84 @@
+main.wallet {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 40px;
+    align-items: center;
+    justify-content: space-around;
+  
+    .hero {
+      border-radius: 30px;
+  
+      .half {
+        display: flex;
+  
+        h1 {
+          font-family: "Raleway", sans-serif;
+          color: #22223a;
+        }
+  
+        img {
+          border-radius: 30px;
+        }
+      }
+    }
+  
+    // Desktop hero
+    @media only screen and (min-width: 600px) {
+      .hero {
+        width: 100%;
+        max-width: 1000px;
+        background: linear-gradient(
+            2.27deg,
+            #fff7f7 -1.79%,
+            rgba(255, 255, 255, 0) 58.55%
+          ),
+          linear-gradient(113.21deg, #f6f8d7 0%, #ddf6ff 60.94%, #f7e5ff 100%);
+        transition: transform 0.2s ease-in;
+  
+        &:hover {
+          transform: scale(101%);
+        }
+  
+        .half {
+          padding: 40px;
+          justify-content: space-between;
+          flex-direction: row;
+  
+          h1 {
+            font-weight: 700;
+            font-size: 4rem;
+            align-self: center;
+          }
+        }
+      }
+    }
+  
+    // Mobile hero
+    @media only screen and (max-width: 600px) {
+      .hero {
+        width: 100%;
+        max-width: 580px;
+        height: 600px;
+  
+        .half {
+          height: 100%;
+          justify-content: center;
+          flex-direction: column;
+  
+          h1 {
+            font-weight: 700;
+            font-size: 4rem;
+            margin-bottom: 40px;
+            position: relative;
+          }
+  
+          img {
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+  
