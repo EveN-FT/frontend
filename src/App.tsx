@@ -4,6 +4,7 @@ import Create from "./routes/Create";
 import EventDetail from "./routes/EventDetail";
 import TicketList from "./routes/TicketList";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
+import Host from "./routes/Host";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/event/:address" element={<EventDetail />} />
         <Route path="/event/:address/tickets" element={<TicketList />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/host" element={<Host />} />
       </Routes>
     </BrowserRouter>
   );

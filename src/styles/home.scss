@@ -25,6 +25,12 @@ main.home {
     }
   }
 
+  .home__cta {
+    display: flex;
+    min-width: 50%;
+    justify-content: space-between;
+  }
+
   // Desktop hero
   @media only screen and (min-width: 600px) {
     .hero {
@@ -77,6 +83,13 @@ main.home {
           object-fit: cover;
         }
       }
+    }
+    .home__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 150px;
     }
   }
 }
