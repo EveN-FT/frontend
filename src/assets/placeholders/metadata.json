@@ -1,0 +1,50 @@
+{
+  "name": "Deadmau5",
+  "description": "Deadmau5 is playing his 4 millionth show at the Temple Theater in downtown Denver. Wednesday, February 16th from 5:00pm - 2:00am",
+  "attributes": [
+    {
+      "key": "/title",
+      "value": "Deadmau5 Dead Mouse Tour"
+    },
+    {
+      "key": "/venue",
+      "value": "Temple Nightclub"
+    },
+    {
+      "key": "/city",
+      "value": "Downtown Denver"
+    },
+    {
+      "key": "/time",
+      "value": "2022-07-10 15:00:00.000"
+    },
+    {
+      "key": "/type",
+      "value": "General Admission"
+    },
+    {
+      "key": "/description",
+      "value": "Deadmau5 is playing his 4 millionth show at the Temple Theater in downtown Denver. Wednesday, February 16th from 5:00pm - 2:00am"
+    },
+    {
+      "key": "/seatnumber",
+      "value": "Row 5 Seat 16 Section G"
+    },
+    {
+      "key": "/lineup",
+      "value": ["Tiesto", "Deadmau5"]
+    }
+  ],
+  "image": {
+    "url": {
+      "ORIGINAL": "https://carbon-media.accelerator.net/0000000kYBW/3AhlNiBBSUQbhr5Ea1rLp2;1278x1790.jpeg"
+    },
+    "meta": {
+      "ORIGINAL": {
+        "type": "image/jpeg",
+        "width": 1278,
+        "height": 1790
+      }
+    }
+  }
+}

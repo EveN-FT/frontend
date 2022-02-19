@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import "../styles/home.scss";
+
 import ticketDesign from "../assets/03-ticketdesign.jpeg";
+import background from "../assets/background.svg";
+import "../styles/home.scss";
 
 const Home = () => {
   return (
     <>
+      <img className="background" src={background} alt="" />
       <NavBar />
       <main className="home">
         <div className="hero">

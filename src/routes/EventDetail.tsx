@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { events } from "./Explore";
 
+import metadata from "../assets/placeholders/metadata.json";
 import "../styles/event-detail.scss";
 
 export type Event = {
@@ -24,8 +25,12 @@ const EventDetail = () => {
     <>
       <NavBar />
       <main className="event-detail">
-        <h1 className="title">{events[0].name}</h1>
-        <p className="description">Event Title</p>
+        <div>
+          <h1 className="title">{metadata.name}</h1>
+          <p className="description">{metadata.description}</p>
+          {/* <p className="location">{metadata.attributes[]}</p> */}
+        </div>
+        <img src={metadata.image.url.ORIGINAL} alt="" />
       </main>
     </>
   );

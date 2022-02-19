@@ -21,7 +21,7 @@ const WalletConnection = () => {
         ) {
           connector.walletConnectProvider = undefined;
         }
-        await activate(connector);
+        await connect();
       } catch (error) {
         console.error(error);
       }
@@ -30,13 +30,13 @@ const WalletConnection = () => {
 
   async function handleDisconnect() {
     try {
-      deactivate();
+      disconnect();
     } catch (error) {
       console.error(error);
     }
   }
 
-  if (active) {
+  if (isActive) {
     return (
       <>
         <div>Connected to {account}</div>

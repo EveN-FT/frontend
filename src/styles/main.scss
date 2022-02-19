@@ -19,6 +19,7 @@ body,
       rgb(240, 251, 255) 60.94%,
       rgb(253, 255, 244) 100%
     );
+  z-index: 1;
 }
 
 button {
@@ -41,4 +42,9 @@ button {
   &:hover {
     transform: scale(102%);
   }
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

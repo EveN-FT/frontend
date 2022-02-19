@@ -29,18 +29,18 @@ const Explore = () => {
       <main className="explore">
         {events.map((event) => {
           return (
-            <div className="event-hero">
-              <div className="event-description">
-                <h1>{event.name}</h1>
-                <p className="description">{event.owner}</p>
-                <Link to={`/event/${event.address}`}>
+            <Link to={`/event/${event.address}`}>
+              <div className="event-hero">
+                <div className="event-description">
+                  <h1>{event.name}</h1>
+                  <p className="description">{event.owner}</p>
                   <button>Buy Tickets</button>
-                </Link>
+                </div>
+                <div className="event-media">
+                  <img src={eventImage} alt={event.name} />
+                </div>
               </div>
-              <div className="event-media">
-                <img src={eventImage} alt={event.name} />
-              </div>
-            </div>
+            </Link>
           );
         })}
       </main>
