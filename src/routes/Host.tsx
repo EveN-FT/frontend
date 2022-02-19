@@ -35,7 +35,7 @@ const Host = () => {
                 <div className="event-description">
                   <h1>{event.name}</h1>
                   <p className="description">{event.owner}</p>
-                  <button>Buy Tickets</button>
+                  <button>Mint Tickets</button>
                 </div>
                 <div className="event-media">
                   <img src={eventImage} alt={event.name} />
