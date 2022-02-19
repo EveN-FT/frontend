@@ -5,6 +5,7 @@ import connectors from "./wallet/connectors";
 import "../styles/navbar.scss";
 import "../styles/wallet-modal.scss";
 import useConnector from "../hooks/useConnector";
+import { Link } from "react-router-dom";
 
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -35,9 +36,15 @@ const WalletConnection = () => {
   // }
 
   if (isActive) {
+    //TODO: remove button and add icon for 'view wallet'
     return (
       <>
-        {/* <div>Connected to {account}</div> */}
+
+        <div>Connected to {account}</div>
+        <Link to={`/wallet`}>
+          <button>View wallet</button>
+        </Link>
+
         <button onClick={disconnect}>Disconnect</button>
       </>
     );
