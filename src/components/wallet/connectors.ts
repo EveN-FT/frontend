@@ -5,49 +5,6 @@ import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { UAuthConnector } from "@uauth/web3-react";
 import { NetworkConnector } from "@web3-react/network-connector";
 
-// import React, { useState, useEffect } from "react";
-// import {
-// 	Web3ReactProvider,
-// 	useWeb3React,
-// 	UnsupportedChainIdError
-// } from "@web3-react/core";
-// import {
-// 	NoEthereumProviderError,
-// 	UserRejectedRequestError as UserRejectedRequestErrorInjected
-// } from "@web3-react/injected-connector";
-// import {
-// 	URI_AVAILABLE,
-// 	UserRejectedRequestError as UserRejectedRequestErrorWalletConnect
-// } from "@web3-react/walletconnect-connector";
-// import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
-
-// function getErrorMessage(error) {
-// 	if (error instanceof NoEthereumProviderError) {
-// 		return "No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.";
-// 	} else if (error instanceof UnsupportedChainIdError) {
-// 		return "You're connected to an unsupported network.";
-// 	} else if (
-// 		error instanceof UserRejectedRequestErrorInjected ||
-// 		error instanceof UserRejectedRequestErrorWalletConnect ||
-// 		error instanceof UserRejectedRequestErrorFrame
-// 	) {
-// 		return "Please authorize this website to access your Ethereum account.";
-// 	} else {
-// 		console.error(error);
-// 		return "An unknown error occurred. Check the console for more details.";
-// 	}
-// }
-// // log the walletconnect URI
-// useEffect(() => {
-//     const logURI = uri => {
-//     };
-//     walletconnect.on(URI_AVAILABLE, logURI);
-
-//     return () => {
-//       walletconnect.off(URI_AVAILABLE, logURI);
-//     };
-//   }, []);
-
 const POLLING_INTERVAL = 12000;
 const RPC_URLS = {
   1: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID!}`,

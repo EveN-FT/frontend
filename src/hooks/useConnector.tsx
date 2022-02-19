@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback, Props } from "react";
+import React, { useState, useEffect, useMemo, useCallback, Props, MouseEventHandler } from "react";
 import {
   injected,
   walletconnect,
@@ -7,6 +7,9 @@ import {
   network,
 } from "../components/wallet/connectors";
 import { useWeb3React } from "@web3-react/core";
+import connectors from "../components/wallet/connectors";
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import { AbstractConnector } from "@web3-react/abstract-connector";
 
 interface Store {
   isActive: boolean;
@@ -14,6 +17,7 @@ interface Store {
   account: string | null | undefined;
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
+  createConnectHandler: (connectorId: string) => Promise<void>;
 }
 
 export const ConnectorContext = React.createContext<Store>({} as Store);
@@ -27,7 +31,7 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
 
   // Init Loading
   useEffect(() => {
-    connect().then(() => {
+    connect().then(() => {    //TODO change this to new createConnectHandler function or just remove it
       setIsLoading(false);
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -40,7 +44,7 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
     handleIsActive();
   }, [handleIsActive]);
 
-  // Connect to Connector wallet
+  //Connect to Connector wallet
   const connect = async () => {
     console.log("Connecting to Connector Wallet");
     try {
@@ -49,8 +53,23 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
       console.log("Error on connecting: ", error);
     }
   };
+  //NEW connect to Connector wallet
+  const createConnectHandler = async (connectorId: string) => {
+      try {
+        const selectedConnector = connectors[connectorId];
+        if (
+          selectedConnector instanceof WalletConnectConnector &&
+          selectedConnector.walletConnectProvider?.wc?.uri
+        ) {
+          selectedConnector.walletConnectProvider = undefined;
+        }
+        await activate(selectedConnector);
+      } catch (error) {
+        console.error(error);
+      }
+  }
 
-  // Disconnect from Metamask wallet
+  // Disconnect from wallet
   const disconnect = async () => {
     console.log("Deactivating...");
     try {
@@ -66,6 +85,7 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
       account,
       isLoading,
       connect,
+      createConnectHandler,
       disconnect,
     }),
     [isActive, isLoading] // eslint-disable-line react-hooks/exhaustive-deps
