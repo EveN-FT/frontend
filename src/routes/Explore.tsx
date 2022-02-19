@@ -34,7 +34,9 @@ const Explore = () => {
                 <div className="event-description">
                   <h1>{event.name}</h1>
                   <p className="description">{event.owner}</p>
-                  <button>Buy Tickets</button>
+                  <Link to={`/event/${event.address}/tickets`}>
+                    <button>Buy Tickets</button>
+                  </Link>
                 </div>
                 <div className="event-media">
                   <img src={eventImage} alt={event.name} />

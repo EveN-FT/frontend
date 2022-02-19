@@ -33,6 +33,7 @@ button {
   font-size: 20px;
   font-weight: bold;
   transition: transform 0.1s ease-in;
+  text-align: center;
 
   a {
     color: white;
@@ -44,6 +45,12 @@ button {
   }
 }
 
+.btn-inverse {
+  font-family: "Questrial", sans-serif;
+  background-color: none;
+  padding: 20px 30px 20px 30px;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -53,6 +60,31 @@ div {
   max-width: 100%;
   hyphens: auto;
   word-break: break-word;
+}
+
+.close {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:after {
+    content: "\00d7"; /* This will render the 'X' */
+    color: #22223a;
+    font-size: 40px;
+  }
+}
+
+h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: "Raleway", sans-serif;
+  color: #22223a;
 }
 
 // Mobile

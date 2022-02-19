@@ -1,0 +1,44 @@
+main.create-event {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+
+  form {
+    width: 100%;
+
+    label {
+      display: none;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 20px;
+      font-family: "Raleway", sans-serif;
+      font-weight: 500;
+      resize: none;
+      border: none;
+      background-color: white;
+      color: #22223a;
+
+      &::placeholder {
+        color: #bbb;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+
+    button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

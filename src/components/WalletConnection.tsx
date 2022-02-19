@@ -37,7 +37,7 @@ const WalletConnection = () => {
   if (isActive) {
     return (
       <>
-        <div>Connected to {account}</div>
+        {/* <div>Connected to {account}</div> */}
         <button onClick={disconnect}>Disconnect</button>
       </>
     );

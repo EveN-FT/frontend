@@ -1,6 +1,6 @@
 import Home from "./routes/Home";
 import Explore from "./routes/Explore";
-import Create from "./routes/Create";
+import EventCreate from "./routes/EventCreate";
 import EventDetail from "./routes/EventDetail";
 import TicketList from "./routes/TicketList";
 import Redeem from "./routes/Redeem";
@@ -17,7 +17,7 @@ function App() {
         <Route path="/event/:address" element={<EventDetail />} />
         <Route path="/event/:address/tickets" element={<TicketList />} />
         <Route path="/event/:address/redeem" element={<Redeem />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/event/new" element={<EventCreate />} />
         <Route path="/host" element={<Host />} />
         <Route path="/user/:address/redeem" element={<UserRedeem />} />
       </Routes>

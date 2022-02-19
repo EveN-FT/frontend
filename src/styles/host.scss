@@ -16,6 +16,13 @@ main.host {
     margin-bottom: 12px;
   }
 
+  .host-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
   .event-hero {
     display: flex;
     width: 100%;
@@ -100,6 +107,11 @@ main.host {
 // Mobile
 @media only screen and (max-width: 600px) {
   main.host {
+    .host-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+
     .event-hero {
       flex-direction: column-reverse;
 

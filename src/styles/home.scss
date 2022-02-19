@@ -27,8 +27,11 @@ main.home {
 
   .home__cta {
     display: flex;
-    min-width: 50%;
-    justify-content: space-between;
+    justify-content: space-around;
+
+    button {
+      margin-bottom: 30px;
+    }
   }
 
   // Desktop hero
@@ -59,6 +62,15 @@ main.home {
         }
       }
     }
+
+    .home__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 50%;
+      justify-content: space-around;
+    }
   }
 
   // Mobile hero
@@ -84,12 +96,12 @@ main.home {
         }
       }
     }
+
     .home__cta {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      height: 150px;
     }
   }
 }
