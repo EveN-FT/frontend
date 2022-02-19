@@ -4,6 +4,8 @@ import { Event } from "./EventDetail";
 
 import eventImage from "../assets/placeholders/event-image.jpeg";
 import "../styles/explore.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const events: Event[] = [
   {
@@ -22,7 +24,32 @@ export const events: Event[] = [
   },
 ];
 
+
+type Contract = {
+    contract_decimals: number;
+    contract_name: string;
+    contract_ticker_symbol: string;
+    contract_address: string;
+    supports_erc: Array<string>
+    logo_url: string;
+    type: string;
+    nft_data: Array<Object>;
+  }
+
 const Explore = () => {
+  const COVALENT_API_BASE = `https://api.covalenthq.com/v1`
+  const CHAIN_ID = 1 //1: ETH Mainnet 137: Polygon Mainnet
+  const testAddr = '0xDDd1d123e53a1aCf61A47ba592E62B240199B1a6' //erc721 for rando nft collection
+
+  const [contracts, setContracts] = useState<Contract[]>([]);
+  useEffect(() => {
+    const COVALENT_CONTRACT_DETAILS = `${COVALENT_API_BASE}/${CHAIN_ID}/tokens/${testAddr}/nft_metadata/123/?&key=${process.env.REACT_APP_COVALENT_KEY}`
+    axios.get(COVALENT_CONTRACT_DETAILS).then(({ data }) => {
+      setContracts(data.data.items);
+      // console.log('api return', data.data.items)
+    }).catch(console.error)
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -45,6 +72,7 @@ const Explore = () => {
             </Link>
           );
         })}
+        
       </main>
     </>
   );

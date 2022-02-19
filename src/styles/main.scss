@@ -22,7 +22,8 @@ body,
     url("../assets/noise.svg");
 }
 
-button {
+button,
+::file-selector-button {
   color: white;
   background-color: #22223a;
   padding: 20px 30px 20px 30px;
@@ -42,6 +43,14 @@ button {
 
   &:hover {
     transform: scale(102%);
+  }
+
+  &:disabled {
+    background-color: #757575;
+
+    &:hover {
+      transform: scale(100%);
+    }
   }
 }
 
@@ -66,7 +75,7 @@ div {
   display: inline-block;
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 40px;
 
   &:hover {
     cursor: pointer;
@@ -85,6 +94,56 @@ h1 {
   font-weight: bold;
   font-family: "Raleway", sans-serif;
   color: #22223a;
+}
+
+form {
+  width: 100%;
+
+  label {
+    display: none;
+  }
+
+  .label-show {
+    display: block !important;
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    margin-left: 20px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    resize: none;
+    border: none;
+    background-color: white;
+    color: #22223a;
+
+    &::placeholder {
+      color: #bbb;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  input[type="datetime-local"],
+  ::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    :after {
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 // Mobile
