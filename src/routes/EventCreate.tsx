@@ -1,14 +1,33 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useState, FormEventHandler } from "react";
+import { useState, FormEventHandler, useEffect } from "react";
 import "../styles/event-create.scss";
+
+import { getWeb3ReactContext, useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
 
 const EventCreate = () => {
   const navigate = useNavigate();
   const [datetime, setDatetime] = useState(new Date().toISOString());
 
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const [bc, setbc] = useState<string>();
+
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    // ipfs upload
+
+    // ipfs hash for metadata
   };
+
+  useEffect(() => {
+    async function getbytecode() {
+      var bc = await provider.getCode(
+        "0x537f2A1C7d368FbCAA8395614a482d9ACf4D9d0D"
+      );
+      setbc(bc);
+    }
+    getbytecode();
+  }, []);
 
   return (
     <main className="create-event">
