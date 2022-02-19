@@ -11,8 +11,8 @@ main.explore {
   .event-hero {
     display: flex;
     width: 100%;
+    max-width: 100%;
     min-height: 300px;
-    background-color: white;
     transition: transform 0.2s ease-in;
     border-radius: 30px;
     padding: 30px;
@@ -97,6 +97,19 @@ main.explore {
 
       img {
         margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+// Extra small
+@media only screen and (max-width: 400px) {
+  main.explore {
+    .event-hero {
+      flex-direction: column-reverse;
+
+      h1 {
+        font-size: 2.7rem !important;
       }
     }
   }
