@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { Event } from "./EventDetail";
+import { tickets } from "./EventMint";
 
 import eventImage from "../assets/placeholders/event-image.jpeg";
 import "../styles/host.scss";
@@ -40,7 +41,22 @@ const Host = () => {
                 <div className="event-description">
                   <h1>{event.name}</h1>
                   <p className="description">{event.owner}</p>
-                  <button>Mint Tickets</button>
+                  {tickets.map((ticket) => {
+                    return (
+                      <div className="ticket-type">
+                        <div>
+                          <h3>{ticket.type}</h3>
+                          <p className="remaining">
+                            {ticket.amountRemaining} remaining
+                          </p>
+                          <p className="price">${ticket.price.toFixed(2)}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <Link to={`/event/${event.address}/mint`}>
+                    <button>Mint Tickets</button>
+                  </Link>
                 </div>
                 <div className="event-media">
                   <img src={eventImage} alt={event.name} />

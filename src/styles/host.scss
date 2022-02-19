@@ -71,10 +71,35 @@ main.host {
       }
     }
 
+    .ticket-type {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-radius: 30px;
+      padding: 20px;
+      width: 100%;
+      transition: transform 0.2s ease-in;
+      margin-bottom: 10px;
+
+      h3 {
+        font-family: "Raleway", sans-serif;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .price,
+      .remaining {
+        font-family: monospace;
+      }
+    }
+
     img {
       border-radius: 20px;
       max-width: 100%;
-      min-height: 100%;
+      height: 100%;
+      // min-height: 100%;
       object-fit: cover;
     }
   }
