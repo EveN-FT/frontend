@@ -2,7 +2,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState, FormEventHandler, useEffect } from "react";
 import { create, CID } from "ipfs-http-client";
 import { getWeb3ReactContext, useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
+import EventABI from "../assets/EventABI.json";
 
 import "../styles/event-create.scss";
 
@@ -16,7 +17,10 @@ const EventCreate = () => {
   const [datetime, setDatetime] = useState(new Date().toISOString());
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
   const [bc, setbc] = useState<string>();
+  // console.log(signer);
+  // console.log(bc);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -103,6 +107,25 @@ const EventCreate = () => {
 
     setImage(event.target.files);
   };
+
+  useEffect(() => {
+    async function deployEvent() {
+      console.log(signer);
+      var res = await event.deploy(
+        //!  this doesn't work
+        signer._address,
+        "from browser",
+        "me ta da ta"
+      );
+      console.log(res);
+    }
+    if (bc) {
+      const iface = new ethers.utils.Interface(EventABI);
+      var event = new ethers.ContractFactory(iface, bc, signer);
+
+      deployEvent();
+    }
+  }, [bc]);
 
   return (
     <main className="create-event">

@@ -56,14 +56,36 @@ const Wallet = () => {
 
   const [tokens, setTokens] = useState<Token[]>([]);
   useEffect(() => {
-    // const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${account}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`
+    const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${account}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`
     //this is for testing, above is the real api URL
-    const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${testAddr}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`
+    // const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${testAddr}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`
     axios.get(COVALENT_GET_WALLET_BALANCE).then(({ data }) => {
       setTokens(data.data.items);
       // console.log('api return', data.data.items)
     }).catch(console.error)
   }, []);
+  const NftTokens = tokens.filter(token => (token.nft_data !== null && token.nft_data.length !== 0))
+  if(NftTokens.length === 0) {
+    return (
+      <>
+      <NavBar />
+      <main className="wallet">
+        <div className="hero">
+          <div className="half">
+            It looks like you don't have any Tiny Tix tickets yet!
+            <br></br>
+            Make sure you're signed in with the correct wallet to see your previously purchased tickets.
+            <br></br>
+            Or go find some Tix for your favorite event on our
+            <Link to="/explore">
+            <button>Explore page</button>
+          </Link>
+          </div>
+        </div>
+      </main>
+    </>
+    )
+  }
 
   return (
     <>
@@ -71,8 +93,7 @@ const Wallet = () => {
       <main className="wallet">
         <div className="hero">
           <div className="half">
-            {tokens.filter(token => (token.nft_data !== null && token.nft_data.length !== 0))
-              .map((nft) => {
+            {NftTokens.map((nft) => {
                 // console.log('each here ', nft.nft_data[0].external_data.external_url)
                 return (
                   <Link to={`/event/${nft.nft_data[0].original_owner}`}>
