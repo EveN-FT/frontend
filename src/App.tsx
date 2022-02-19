@@ -24,7 +24,6 @@ function App() {
         <Route path="/event/:address/mint" element={<EventMint />} />
         <Route path="/event/new" element={<EventCreate />} />
         <Route path="/host" element={<Host />} />
-
       </Routes>
     </BrowserRouter>
   );
