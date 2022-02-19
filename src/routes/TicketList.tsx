@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 import "../styles/ticket-list.scss";
@@ -22,24 +22,24 @@ export const tickets = [
 ];
 
 const TicketList = () => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <NavBar />
-      <main className="ticket-list">
-        {tickets.map((ticket) => {
-          return (
-            <div className="ticket-type">
-              <div>
-                <h3>{ticket.type}</h3>
-                <p className="remaining">{ticket.amountRemaining} remaining</p>
-                <p className="price">${ticket.price.toFixed(2)}</p>
-              </div>
-              <button>Buy</button>
+    <main className="ticket-list">
+      <span className="close" onClick={() => navigate(-1)}></span>
+      {tickets.map((ticket) => {
+        return (
+          <div className="ticket-type">
+            <div>
+              <h3>{ticket.type}</h3>
+              <p className="remaining">{ticket.amountRemaining} remaining</p>
+              <p className="price">${ticket.price.toFixed(2)}</p>
             </div>
-          );
-        })}
-      </main>
-    </>
+            <button>Buy</button>
+          </div>
+        );
+      })}
+    </main>
   );
 };
 

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
 
@@ -16,6 +17,7 @@ export type Event = {
 
 const EventDetail = () => {
   const { address } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(address);

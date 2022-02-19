@@ -27,7 +27,12 @@ const Host = () => {
     <>
       <NavBar />
       <main className="host">
-        <h1>Your events</h1>
+        <div className="host-bar">
+          <h1>Your events</h1>
+          <Link to="/event/new">
+            <button>Create Event</button>
+          </Link>
+        </div>
         {events.map((event) => {
           return (
             <Link to={`/event/${event.address}`}>

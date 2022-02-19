@@ -24,11 +24,11 @@ const Home = () => {
           </div>
         </div>
         <div className="home__cta">
-          <Link to="/host">
-            <button>Host events →</button>
-          </Link>
           <Link to="/explore">
             <button>Get your tickets →</button>
+          </Link>
+          <Link to="/host" className="btn-inverse">
+            Host events →
           </Link>
         </div>
       </main>
