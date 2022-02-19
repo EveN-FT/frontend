@@ -107,6 +107,11 @@ main.host {
 // Mobile
 @media only screen and (max-width: 600px) {
   main.host {
+    .host-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+
     .event-hero {
       flex-direction: column-reverse;
 
