@@ -3,7 +3,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./redux/store";
-import "./styles/reset.css";
+// import "./styles/reset.css";
+import "the-new-css-reset/css/reset.css";
 import "./styles/main.scss";
 //multiconnect wallet
 import { Web3ReactProvider } from "@web3-react/core";

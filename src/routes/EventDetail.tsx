@@ -19,11 +19,6 @@ const EventDetail = () => {
   const { address } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(address);
-  }, [address]);
-  console.log();
-
   return (
     <>
       <NavBar />
