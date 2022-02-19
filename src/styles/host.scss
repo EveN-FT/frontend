@@ -1,4 +1,4 @@
-main.explore {
+main.host {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -8,11 +8,26 @@ main.explore {
   max-width: 1000px;
   width: 100%;
 
+  h1 {
+    font-size: 3rem;
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+    color: #22223a;
+    margin-bottom: 12px;
+  }
+
+  .host-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
   .event-hero {
     display: flex;
     width: 100%;
-    max-width: 100%;
     min-height: 300px;
+    background-color: white;
     transition: transform 0.2s ease-in;
     border-radius: 30px;
     padding: 30px;
@@ -49,7 +64,6 @@ main.explore {
         margin-bottom: 20px;
       }
 
-      a,
       button {
         border-radius: 20px;
         align-self: flex-start;
@@ -68,7 +82,7 @@ main.explore {
 
 // Desktop
 @media only screen and (min-width: 600px) {
-  main.explore {
+  main.host {
     .event-hero {
       flex-direction: row;
       justify-content: space-between;
@@ -92,25 +106,17 @@ main.explore {
 
 // Mobile
 @media only screen and (max-width: 600px) {
-  main.explore {
+  main.host {
+    .host-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+
     .event-hero {
       flex-direction: column-reverse;
 
       img {
         margin-bottom: 20px;
-      }
-    }
-  }
-}
-
-// Extra small
-@media only screen and (max-width: 400px) {
-  main.explore {
-    .event-hero {
-      flex-direction: column-reverse;
-
-      h1 {
-        font-size: 2.7rem !important;
       }
     }
   }

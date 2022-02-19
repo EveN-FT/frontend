@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import { Event } from "./EventDetail";
 
 import eventImage from "../assets/placeholders/event-image.jpeg";
-import "../styles/explore.scss";
+import "../styles/host.scss";
 
 export const events: Event[] = [
   {
@@ -22,11 +22,17 @@ export const events: Event[] = [
   },
 ];
 
-const Explore = () => {
+const Host = () => {
   return (
     <>
       <NavBar />
-      <main className="explore">
+      <main className="host">
+        <div className="host-bar">
+          <h1>Your events</h1>
+          <Link to="/event/new">
+            <button>Create Event</button>
+          </Link>
+        </div>
         {events.map((event) => {
           return (
             <Link to={`/event/${event.address}`}>
@@ -34,9 +40,7 @@ const Explore = () => {
                 <div className="event-description">
                   <h1>{event.name}</h1>
                   <p className="description">{event.owner}</p>
-                  <Link to={`/event/${event.address}/tickets`}>
-                    <button>Buy Tickets</button>
-                  </Link>
+                  <button>Mint Tickets</button>
                 </div>
                 <div className="event-media">
                   <img src={eventImage} alt={event.name} />
@@ -50,4 +54,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Host;

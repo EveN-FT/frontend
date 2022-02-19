@@ -8,7 +8,7 @@ import "../styles/home.scss";
 const Home = () => {
   return (
     <>
-      <img className="background" src={background} alt="" />
+      {/* <img className="background" src={background} alt="" /> */}
       <NavBar />
       <main className="home">
         <div className="hero">
@@ -23,9 +23,14 @@ const Home = () => {
             <img src={ticketDesign} alt="Ticket design" />
           </div>
         </div>
-        <Link to="/explore">
-          <button>Explore Tickets →</button>
-        </Link>
+        <div className="home__cta">
+          <Link to="/explore">
+            <button>Get your tickets →</button>
+          </Link>
+          <Link to="/host" className="btn-inverse">
+            Host events →
+          </Link>
+        </div>
       </main>
     </>
   );

@@ -50,9 +50,10 @@ export function resetWalletConnector(connector: WalletConnectConnector) {
 
 //coinbase wallet
 export const walletlink = new WalletLinkConnector({
-	url: RPC_URLS[137],
-	appName: 'EveN-FT',
-	supportedChainIds: [1, 4, 137, 80001]
+
+  url: RPC_URLS[137],
+  appName: "Tiny Tix",
+
 });
 
 //unstoppable domains

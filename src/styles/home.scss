@@ -1,14 +1,3 @@
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  height: 100vh;
-  width: 100vw;
-  object-fit: cover;
-  opacity: 0.1;
-}
-
 main.home {
   display: flex;
   flex-direction: column;
@@ -17,7 +6,6 @@ main.home {
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  z-index: 1;
 
   .hero {
     border-radius: 30px;
@@ -34,6 +22,15 @@ main.home {
       img {
         border-radius: 30px;
       }
+    }
+  }
+
+  .home__cta {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      margin-bottom: 30px;
     }
   }
 
@@ -60,11 +57,19 @@ main.home {
         flex-direction: row;
 
         h1 {
-          font-weight: 700;
           font-size: 4rem;
           align-self: center;
         }
       }
+    }
+
+    .home__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 50%;
+      justify-content: space-around;
     }
   }
 
@@ -81,8 +86,6 @@ main.home {
         flex-direction: column;
 
         h1 {
-          font-weight: 700;
-          font-size: 4rem;
           margin-bottom: 40px;
           position: relative;
         }
@@ -92,6 +95,13 @@ main.home {
           object-fit: cover;
         }
       }
+    }
+
+    .home__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }

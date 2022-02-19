@@ -39,10 +39,12 @@ const WalletConnection = () => {
     //TODO: remove button and add icon for 'view wallet'
     return (
       <>
+
         <div>Connected to {account}</div>
         <Link to={`/wallet`}>
           <button>View wallet</button>
         </Link>
+
         <button onClick={disconnect}>Disconnect</button>
       </>
     );
