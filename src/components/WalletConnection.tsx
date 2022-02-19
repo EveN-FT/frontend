@@ -47,7 +47,7 @@ const WalletConnection = () => {
               <button
                 key={v}
                 onClick={createConnectHandler(v)}
-                // onClick={connect}
+                // onClick={connect}  //this works fine and the function has the same declared type in useConnector.tsx so idgi
                 className="wallet-icon"
                 id={v}
               >
