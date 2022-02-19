@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 
 const EventView = () => {
     const [contracts, setContracts] = useState([]);
-    useEffect(() => {
-        axios.get(COVALENT_API_BASE).then(({ data }) => {
-            setContracts(data);
-        }).catch(console.error)
-    }, []);
+
+    const COVALENT_API_BASE = `https://api.covalenthq.com/v1`
+    // useEffect(() => {
+    //     axios.get(COVALENT_API_BASE).then(({ data }) => {
+    //         setContracts(data);
+    //     }).catch(console.error)
+    // }, []);
     
     
     const [selectedContract, setSelectedContract] = useState('');
@@ -20,7 +22,6 @@ const EventView = () => {
     // }
 
 
-    const COVALENT_API_BASE = `https://api.covalenthq.com/v1`
 
 
 
