@@ -8,39 +8,30 @@ import useConnector from "../hooks/useConnector";
 
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
-  // const { active, account, activate, deactivate } = useWeb3React();
-  const { isActive, account, connect, disconnect } = useConnector();
+  const { isActive, isLoading, account, connect, disconnect, createConnectHandler } = useConnector();
 
-  function createConnectHandler(connectorId: string) {
-    return async () => {
-      try {
-        const connector = connectors[connectorId];
-        if (
-          connector instanceof WalletConnectConnector &&
-          connector.walletConnectProvider?.wc?.uri
-        ) {
-          connector.walletConnectProvider = undefined;
-        }
-        await activate(connector);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  }
+  // function createConnectHandler(connectorId: string) {
+  //   return async () => {
+  //     try {
+  //       const connector = connectors[connectorId];
+  //       if (
+  //         connector instanceof WalletConnectConnector &&
+  //         connector.walletConnectProvider?.wc?.uri
+  //       ) {
+  //         connector.walletConnectProvider = undefined;
+  //       }
+  //       await activate(connector);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  // }
 
-  async function handleDisconnect() {
-    try {
-      deactivate();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  if (active) {
+  if (isActive) {
     return (
       <>
         <div>Connected to {account}</div>
-        <button onClick={handleDisconnect}>Disconnect</button>
+        <button onClick={disconnect}>Disconnect</button>
       </>
     );
   }
@@ -56,6 +47,7 @@ const WalletConnection = () => {
               <button
                 key={v}
                 onClick={createConnectHandler(v)}
+                // onClick={connect}
                 className="wallet-icon"
                 id={v}
               >
