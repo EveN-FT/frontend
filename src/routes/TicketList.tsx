@@ -7,6 +7,11 @@ export const tickets = [
   {
     type: "General Admission",
     price: 15.0,
+    amountRemaining: 0,
+  },
+  {
+    type: "General Admission 2",
+    price: 17.0,
     amountRemaining: 150,
   },
   {
@@ -35,7 +40,7 @@ const TicketList = () => {
               <p className="remaining">{ticket.amountRemaining} remaining</p>
               <p className="price">${ticket.price.toFixed(2)}</p>
             </div>
-            <button>Buy</button>
+            <button disabled={ticket.amountRemaining < 1}>Buy</button>
           </div>
         );
       })}

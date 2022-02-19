@@ -43,6 +43,14 @@ button {
   &:hover {
     transform: scale(102%);
   }
+
+  &:disabled {
+    background-color: #757575;
+
+    &:hover {
+      transform: scale(100%);
+    }
+  }
 }
 
 .btn-inverse {
