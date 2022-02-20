@@ -41,7 +41,6 @@ const EventMint = () => {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<FileList | null>(null);
   const { library } = useWeb3React();
-  const signer = library.getSigner();
 
   const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) {
@@ -86,6 +85,7 @@ const EventMint = () => {
     const metadata = {
       name: type,
       description: desc,
+      eventAddress: eventAddress,
       image: {
         url: {
           ORIGINAL: `ipfs://ipfs/${imageCid}`,
@@ -105,13 +105,13 @@ const EventMint = () => {
 
     async function mintTickets() {
       const loadContract = async () => {
-        var addr = await signer.getAddress();
+        var addr = await library.getSigner().getAddress();
         const contractShape = new ethers.Contract(
-          "0x8Ba781900310C6ecaFc683f1e1385E26E6bacC65",
+          process.env.REACT_APP_TICKET_ADDRESS!,
           TicketABI,
           library
         );
-        var contract = contractShape.connect(signer);
+        var contract = contractShape.connect(library.getSigner());
         console.log(contract);
         var res = await contract.mint(
           eventAddress,
@@ -120,13 +120,16 @@ const EventMint = () => {
           parseInt(price)
         );
         var { events } = await res.wait();
-        var ids;
+        var ids = [];
 
-        // for (var i = 0; i < events.length; i++) {ids.push(Number(events.)))}
-        // await axios.post(
-        //   "https://beta-even-ft-backend.onrender.com/api/v1/ticket/create",
-        //   { address: addr, ticketId: ids }
-        // );
+        for (var i = 0; i < events.length; i++) {
+          ids.push(events[i].args.tokenId.toNumber());
+        }
+        console.log(ids);
+        await axios.post(
+          "https://beta-even-ft-backend.onrender.com/api/v1/ticket/create",
+          { address: addr, ticketIds: ids }
+        );
       };
       await loadContract();
     }
@@ -172,7 +175,7 @@ const EventMint = () => {
           name="price"
           placeholder="Ticket price in gwei"
           rows={1}
-          maxLength={3}
+          maxLength={24}
           onChange={(e) => setPrice(e.target.value)}
         />
         <label htmlFor="image" className="label-show">

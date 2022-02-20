@@ -5,6 +5,7 @@ import "../styles/wallet.scss";
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNFTBalances } from "react-moralis";
 
 const Wallet = () => {
   type NftExternalData = {
@@ -49,29 +50,44 @@ const Wallet = () => {
     quote_24h: number;
     nft_data: Array<NftData>;
   };
-  const COVALENT_API_BASE = `https://api.covalenthq.com/v1`;
-  const CHAIN_ID = 1; //1: ETH Mainnet 137: Polygon Mainnet
-  const { active, account, activate, deactivate } = useWeb3React();
-  let navigate = useNavigate();
-
-  const testAddr = "0x67Fd888Da2319f8f8419FD7842e32d5C5E71F528";
 
   const [tokens, setTokens] = useState<Token[]>([]);
+  const options = { address: "0xd...07", chain: "bsc" };
+  const { getNFTBalances, data, error, isLoading, isFetching } =
+    useNFTBalances();
+  const { account } = useWeb3React();
+
+  // const COVALENT_API_BASE = `https://api.covalenthq.com/v1`;
+  // const { chainId, active, account, activate, deactivate } = useWeb3React();
+  // let navigate = useNavigate();
+
+  // const testAddr = "0x67Fd888Da2319f8f8419FD7842e32d5C5E71F528";
   useEffect(() => {
-    const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${account}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`;
-    //this is for testing, above is the real api URL
-    // const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${testAddr}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`
-    axios
-      .get(COVALENT_GET_WALLET_BALANCE)
-      .then(({ data }) => {
-        setTokens(data.data.items);
-        // console.log('api return', data.data.items)
-      })
-      .catch(console.error);
+    const load = async () => {
+      if (account) {
+        const respo = await getNFTBalances({
+          params: { address: account, chain: "0x1" },
+        });
+        console.log(respo);
+      }
+    };
+    load();
+    //const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${chainId}/address/${account}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`;
+    ////this is for testing, above is the real api URL
+    //// const COVALENT_GET_WALLET_BALANCE = `${COVALENT_API_BASE}/${CHAIN_ID}/address/${testAddr}/balances_v2/?&quote-currency=USD&nft=true&key=${process.env.REACT_APP_COVALENT_KEY}`
+    //axios
+    //  .get(COVALENT_GET_WALLET_BALANCE)
+    //  .then(({ data }) => {
+    //    setTokens(data.data.items);
+    //    // console.log('api return', data.data.items)
+    //  })
+    //  .catch(console.error);
   }, []);
+
   const NftTokens = tokens.filter(
     (token) => token.nft_data !== null && token.nft_data.length !== 0
   );
+
   if (NftTokens.length === 0) {
     return (
       <>
@@ -93,8 +109,8 @@ const Wallet = () => {
           <button
             className="red"
             onClick={() => {
-              deactivate();
-              navigate("/");
+              // deactivate();
+              // navigate("/");
             }}
           >
             Disconnect
