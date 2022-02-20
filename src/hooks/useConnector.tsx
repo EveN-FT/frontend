@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useMemo, useCallback, Props, MouseEventHandler } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  Props,
+  MouseEventHandler,
+} from "react";
 import {
   injected,
   walletconnect,
@@ -18,6 +25,7 @@ interface Store {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
   createConnectHandler: (connectorId: string) => Promise<void>;
+  library: any;
 }
 
 export const ConnectorContext = React.createContext<Store>({} as Store);
@@ -31,7 +39,8 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
 
   // Init Loading
   useEffect(() => {
-    connect().then(() => {    //TODO change this to new createConnectHandler function or just remove it
+    connect().then(() => {
+      //TODO change this to new createConnectHandler function or just remove it
       setIsLoading(false);
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -55,19 +64,19 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
   };
   //NEW connect to Connector wallet
   const createConnectHandler = async (connectorId: string) => {
-      try {
-        const selectedConnector = connectors[connectorId];
-        if (
-          selectedConnector instanceof WalletConnectConnector &&
-          selectedConnector.walletConnectProvider?.wc?.uri
-        ) {
-          selectedConnector.walletConnectProvider = undefined;
-        }
-        await activate(selectedConnector);
-      } catch (error) {
-        console.error(error);
+    try {
+      const selectedConnector = connectors[connectorId];
+      if (
+        selectedConnector instanceof WalletConnectConnector &&
+        selectedConnector.walletConnectProvider?.wc?.uri
+      ) {
+        selectedConnector.walletConnectProvider = undefined;
       }
-  }
+      await activate(selectedConnector);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Disconnect from wallet
   const disconnect = async () => {
@@ -87,6 +96,7 @@ export const ConnectorProvider = ({ children }: Props<any>) => {
       connect,
       createConnectHandler,
       disconnect,
+      library,
     }),
     [isActive, isLoading] // eslint-disable-line react-hooks/exhaustive-deps
   );

@@ -16,6 +16,7 @@ main.explore {
     min-width: 100%;
     min-height: 300px;
     transition: transform 0.2s ease-in;
+    align-items: space-between;
     border-radius: 30px;
     padding: 30px;
     background: linear-gradient(
@@ -61,7 +62,7 @@ main.explore {
 
     img {
       border-radius: 20px;
-      max-width: 100%;
+      max-width: 40%;
       min-height: 100%;
       object-fit: cover;
     }
