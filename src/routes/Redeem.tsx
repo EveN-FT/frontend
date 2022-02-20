@@ -16,7 +16,7 @@ const Redeem = () => {
     videoId: 'video',
     scanDelay: 500,
     constraints: {
-      facingMode: 'user',
+      facingMode: 'rear',
     },
   };
 

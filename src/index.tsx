@@ -3,10 +3,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./redux/store";
-// import "./styles/reset.css";
 import "the-new-css-reset/css/reset.css";
 import "./styles/main.scss";
-//multiconnect wallet
 import { Web3ReactProvider } from "@web3-react/core";
 import {
   ExternalProvider,
@@ -14,6 +12,7 @@ import {
   Web3Provider,
 } from "@ethersproject/providers";
 import { ConnectorProvider } from "./hooks/useConnector";
+import { MoralisProvider } from "react-moralis";
 
 const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
   const library = new Web3Provider(provider, "any");
@@ -24,9 +23,14 @@ const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
 ReactDOM.render(
   <Web3ReactProvider getLibrary={getLibrary}>
     <ConnectorProvider>
-      <ReduxProvider store={store}>
-        <App />
-      </ReduxProvider>
+      <MoralisProvider
+        appId="Lha1izn3kc9AdoBp4FfI6ruxZdDZ9iIkIwmFxsgX"
+        serverUrl="https://pbr26iwsgfom.usemoralis.com:2053/server"
+      >
+        <ReduxProvider store={store}>
+          <App />
+        </ReduxProvider>
+      </MoralisProvider>
     </ConnectorProvider>
   </Web3ReactProvider>,
   document.getElementById("root")

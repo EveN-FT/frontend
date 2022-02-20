@@ -9,14 +9,8 @@ import { Link } from "react-router-dom";
 
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
-  const {
-    isActive,
-    isLoading,
-    account,
-    connect,
-    disconnect,
-    createConnectHandler,
-  } = useConnector();
+  const { isActive, account, disconnect, createConnectHandler } =
+    useConnector();
 
   // function createConnectHandler(connectorId: string) {
   //   return async () => {
@@ -39,13 +33,9 @@ const WalletConnection = () => {
     //TODO: remove button and add icon for 'view wallet'
     return (
       <>
-
-        <div>Connected to {account}</div>
         <Link to={`/wallet`}>
           <button>View wallet</button>
         </Link>
-
-        <button onClick={disconnect}>Disconnect</button>
       </>
     );
   }
@@ -61,7 +51,6 @@ const WalletConnection = () => {
               <button
                 key={v}
                 onClick={() => createConnectHandler(v)}
-                // onClick={connect}  //this works fine and the function has the same declared type in useConnector.tsx so idgi
                 className="wallet-icon"
                 id={v}
               >
