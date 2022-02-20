@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { create, CID } from "ipfs-http-client";
+import TicketABI from "../assets/TicketABI.json";
 
 import "../styles/mint-tickets.scss";
+import { ethers } from "ethers";
+import { useWeb3React } from "@web3-react/core";
 
 export const tickets = [
   {
@@ -30,10 +33,14 @@ export const tickets = [
 ];
 
 const EventMint = () => {
+  const { address: eventAddress } = useParams();
   const navigate = useNavigate();
   const [type, setType] = useState("");
   const [desc, setDesc] = useState("");
+  const [amount, setAmount] = useState("");
   const [image, setImage] = useState<FileList | null>(null);
+  const { library } = useWeb3React();
+  const signer = library.getSigner();
 
   const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) {
@@ -96,9 +103,26 @@ const EventMint = () => {
     const metadataUri = `ipfs://ipfs/${metadataCid}`;
 
     async function mintTickets() {
+      const loadContract = async () => {
+        const contractShape = new ethers.Contract(
+          "0xb628a2038bb4bf52486ffdd8dd2eb07e73dda5da",
+          TicketABI,
+          library
+        );
+        var contract = contractShape.connect(signer);
+        console.log(contract);
+        var res = await contract.mintGA(
+          eventAddress,
+          metadataUri,
+          parseInt(amount)
+        );
+        var rec = await res.wait();
+        console.log(res);
+        console.log(rec);
+      };
+      await loadContract();
       // needs to be locally compiled bytecode for some reason
       // var event = new ethers.ContractFactory(EventABI, BC, signer);
-      // var addr = await signer.getAddress();
       // var res = await event.deploy(addr, title, metadataUri);
       // await axios.post(
       //   "https://beta-even-ft-backend.onrender.com/api/v1/event/create",
@@ -131,6 +155,15 @@ const EventMint = () => {
           rows={3}
           maxLength={140}
           onChange={(e) => setDesc(e.target.value)}
+        />
+        <label htmlFor="amount">Ticket Amount</label>
+        <textarea
+          id="amount"
+          name="amount"
+          placeholder="Ticket amount"
+          rows={1}
+          maxLength={3}
+          onChange={(e) => setAmount(e.target.value)}
         />
         <label htmlFor="image" className="label-show">
           Ticket Image
