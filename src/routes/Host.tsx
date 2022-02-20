@@ -20,6 +20,7 @@ export const events: Event[] = [
     venue: "",
     city: "",
     time: "",
+    description: "",
   },
   {
     address: "0x537f2A1C7d368FbCAA8395614a482d9ACf4D9d0D",
@@ -31,6 +32,7 @@ export const events: Event[] = [
     venue: "",
     city: "",
     time: "",
+    description: "",
   },
 ];
 
