@@ -1,7 +1,5 @@
-import { useState } from "react";
 import ticketIcon from "../assets/ticket-icon.png";
 import { Link } from "react-router-dom";
-import Home from "../routes/Home";
 import WalletConnection from "./WalletConnection";
 import "../styles/navbar.scss";
 import "../styles/wallet-modal.scss";

@@ -113,7 +113,6 @@ const Explore = () => {
         {events
           .filter((event) => event !== null)
           .map((event, key) => {
-            console.log(event);
             return (
               <Link to={`/event/${event!.address}`} key={key}>
                 <div className="event-hero">
