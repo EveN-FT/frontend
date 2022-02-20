@@ -131,6 +131,7 @@ const EventMint = () => {
         );
       };
       await loadContract();
+      navigate(-1);
     }
     mintTickets();
   };

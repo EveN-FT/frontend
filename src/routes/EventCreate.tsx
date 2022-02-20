@@ -100,6 +100,7 @@ const EventCreate = () => {
         "https://beta-even-ft-backend.onrender.com/api/v1/event/create",
         { address: res.address, ownerAddress: addr }
       );
+      navigate(-1);
     }
     deployEvent();
   };
