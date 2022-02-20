@@ -20,7 +20,7 @@ function App() {
         <Route path="/event/:address" element={<EventDetail />} />
 
         <Route path="/event/:address/tickets" element={<TicketList />} />
-        <Route path="/event/redeem" element={<Redeem />} />
+        <Route path="/event/:address/redeem" element={<Redeem />} />
         <Route path="/event/:address/mint" element={<EventMint />} />
         <Route path="/event/new" element={<EventCreate />} />
         <Route path="/host" element={<Host />} />

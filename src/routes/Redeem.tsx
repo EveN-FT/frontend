@@ -5,9 +5,11 @@ import { ViewFinder } from "./ViewFinder";
 import { ethers } from "ethers";
 import abi from "../assets/TicketABI.json";
 import { useWeb3React } from "@web3-react/core";
+import { useParams } from "react-router-dom";
 
 const Redeem = () => {
   const { library } = useWeb3React();
+  const { address } = useParams();
   const [data, setData] = useState("Hold QR Code Steady and Clear to Scan");
   const [redeemed, setRedeemed] = useState(false);
   const [valid, setValid] = useState(Boolean);
@@ -25,6 +27,7 @@ const Redeem = () => {
     abi,
     library
   );
+
   const verify = async () => {
     const qrInfo = JSON.parse(data);
     const verified = ethers.utils.verifyTypedData(
@@ -51,7 +54,7 @@ const Redeem = () => {
           const qrInfo = JSON.parse(data);
           const res = await api.post("/ticket/redeem", {
             address: qrInfo.value.Owner,
-            ticketId: qrInfo.value.ID,
+            ticketId: parseInt(qrInfo.value.ID),
           });
           if (res.status === 200) {
             setRedeemed(true);
@@ -88,7 +91,6 @@ const Redeem = () => {
           }
         }}
       />
-      <p>{data}</p>
       {valid && redeemed && <p>Ticket Redeemed</p>}
       {!valid && redeemed && <p>Invalid Ticket</p>}
       {!valid && !redeemed && <p>Scanning Ticket...</p>}
