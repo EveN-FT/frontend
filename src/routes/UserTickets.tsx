@@ -76,7 +76,7 @@ const UserTickets = () => {
           params: {
             address: account,
             chain: "rinkeby",
-            token_addresses: ["0xED71150645a380b02f12434D6531c4EA21c0D0EC"],
+            token_addresses: [process.env.REACT_APP_TICKET_ADDRESS!],
           },
         });
         console.log(balance);
@@ -87,9 +87,9 @@ const UserTickets = () => {
               .map((token) => {
                 const metadata = JSON.parse(token.metadata!);
                 return {
-                  name: "",
-                  image: "",
-                  description: "",
+                  name: metadata.name,
+                  image: metadata.image.url.ORIGINAL,
+                  description: metadata.description,
                   eventAddress: metadata.eventAddress,
                 };
               })
