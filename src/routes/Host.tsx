@@ -14,7 +14,7 @@ import { useWeb3React } from "@web3-react/core";
 import EventABI from "../assets/EventABI.json";
 
 const Host = () => {
-  const { library } = useWeb3React();
+  const { library, account } = useWeb3React();
   const [events, setEvents] = useState<(Event | null)[]>([]);
   const [eventData, setEventData] = useState<EventDetail[]>([]);
 
@@ -120,7 +120,9 @@ const Host = () => {
           <p>Loading events...</p>
         ) : (
           events
-            .filter((event) => event !== null)
+            .filter((event) => {
+              return event !== null && event.address === account;
+            })
             .map((event, key) => {
               return (
                 <Link to={`/event/${event!.address}`} key={key}>
