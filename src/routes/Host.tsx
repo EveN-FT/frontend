@@ -13,6 +13,10 @@ export const events: Event[] = [
     owner:
       "Deadmau5 is playing his 4 millionth show at the Temple Theater in downtown Denver. Wednesday, February 16th from 5:00pm - 2:00am",
     metadata: "",
+    imageUrl: "",
+    venue: "",
+    city: "",
+    time: "",
   },
   {
     address: "0x37121F74d25262011AdD8cc8D13E6923AEb699d8",
@@ -20,6 +24,10 @@ export const events: Event[] = [
     owner:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     metadata: "",
+    imageUrl: "",
+    venue: "",
+    city: "",
+    time: "",
   },
 ];
 
