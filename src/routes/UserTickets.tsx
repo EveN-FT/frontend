@@ -79,6 +79,12 @@ const UserTickets = () => {
         </button>
         {tickets.length > 0 ? (
           tickets.map((ticket, key) => {
+            var imgUri = ticket.image;
+
+            if (ticket.image.startsWith("ipfs://")) {
+              imgUri = `https://ipfs.io/ipfs/${ticket.image.split("/").pop()}`;
+            }
+
             return (
               <React.Fragment key={key}>
                 <div className="event-hero">
@@ -89,7 +95,7 @@ const UserTickets = () => {
                     </div>
                   </Link>
                   <div className="event-media">
-                    <img src={ticket.image} alt={ticket.name} />
+                    <img src={imgUri} alt={ticket.name} />
                   </div>
                 </div>
                 <Link to={`/user/redeem/${ticket.id}`}>
