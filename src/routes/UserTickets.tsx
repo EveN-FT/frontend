@@ -70,7 +70,7 @@ const UserTickets = () => {
       <main className="explore">
         <h1>Your tickets</h1>
         <button
-          className="red"
+          className="red disconnect"
           onClick={() => {
             deactivate();
             navigate("/");
