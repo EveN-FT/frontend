@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { Event } from "./EventDetail";
+import { Event } from "./Explore";
 import { tickets } from "./EventMint";
 
 import eventImage from "../assets/placeholders/event-image.jpeg";
