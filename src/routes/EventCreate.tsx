@@ -21,22 +21,9 @@ const EventCreate = () => {
   const [datetime, setDatetime] = useState(new Date().toISOString());
 
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const [bc, setbc] = useState<string>();
   const { library } = useWeb3React();
   const signer = library.getSigner();
   console.log(signer);
-
-  useEffect(() => {
-    async function getbytecode() {
-      var bc = await library.getCode(
-        "0x4428d5424F822CbF061619bB68FC01d82Db5da11"
-      );
-      setbc(bc);
-    }
-    getbytecode();
-  }, []);
-
-  useEffect(() => {}, []);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
