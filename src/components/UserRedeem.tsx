@@ -3,7 +3,8 @@ import {TextField, TextareaAutosize, Grid} from '@material-ui/core'
 import QRcode from 'qrcode.react';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
-import abi from '../assets/TicketABI.json'
+import TicketABI from '../assets/TicketABI.json'
+import EventABI from "../assets/EventABI.json";
 
 type Props = {
   ticketId: number
@@ -15,7 +16,7 @@ const UserRedeem = ({ ticketId }: Props) => {
     setQr(event.target.value);
   };
   const { account, library, chainId } = useWeb3React();
-  var contract = new ethers.Contract(process.env.REACT_APP_TICKET_ADDRESS!, abi, library)
+  var ticketContract = new ethers.Contract(process.env.REACT_APP_TICKET_ADDRESS!, TicketABI, library)
 
   const sign = async () => {
     const domain = {
@@ -37,17 +38,19 @@ const UserRedeem = ({ ticketId }: Props) => {
         { name: "ID", type: "uint256" },
       ],
     };
-    const owner = await contract.ownerOf(ticketId)
+    const owner = await ticketContract.ownerOf(ticketId)
     // need to be the owner of the ticket
     if (owner !== account) {
       return
     }
-    const eventAddress = await contract.eventAddress(ticketId)
+    const eventAddress = await ticketContract.eventAddress(ticketId)
+    const eventContract = new ethers.Contract(eventAddress, EventABI, library);
+    const eventName = await eventContract.name();
 
     // NEED to get the data to sign
     const value = {
       Event: {
-        Name: "Kanye West",
+        Name: eventName,
         Address: eventAddress,
       },
       Owner: account,
@@ -83,21 +86,6 @@ const UserRedeem = ({ ticketId }: Props) => {
                 <p>No QR code preview</p>
             }
           </div>
-          <div>
-            {
-              qr ?
-                <Grid container>
-                  <Grid item xs={10}>
-                  <TextareaAutosize
-                    style={{fontSize:18, width:250, height:100}}
-                    rowsMax={4}
-                    defaultValue={qr}
-                    value={qr}
-                  />
-                  </Grid>
-                </Grid> : ''
-              }
-            </div>
             <button onClick={sign}>Sign</button>
             {/* <button onClick={verify}>Verify</button> */}
       </div>
