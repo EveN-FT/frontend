@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import {TextField, TextareaAutosize, Grid} from '@material-ui/core'
+import { useParams } from 'react-router'
+import NavBar from "../components/NavBar";
 import QRcode from 'qrcode.react';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import TicketABI from '../assets/TicketABI.json'
 import EventABI from "../assets/EventABI.json";
+import "../styles/explore.scss";
 
-type Props = {
-  ticketId: number
-}
-
-const UserRedeem = ({ ticketId }: Props) => {
-  const [qr, setQr] = useState('Tiny Tix');
+const UserRedeem = () => {
+  const { id: ticketId } = useParams<{ id: string }>()
+  const [qr, setQr] = useState('');
   const handleChange = (event:any) => {
     setQr(event.target.value);
   };
@@ -19,6 +18,7 @@ const UserRedeem = ({ ticketId }: Props) => {
   var ticketContract = new ethers.Contract(process.env.REACT_APP_TICKET_ADDRESS!, TicketABI, library)
 
   const sign = async () => {
+    console.log(ticketId)
     const domain = {
       name: "Tiny Tix",
       version: "1",
@@ -41,6 +41,7 @@ const UserRedeem = ({ ticketId }: Props) => {
     const owner = await ticketContract.ownerOf(ticketId)
     // need to be the owner of the ticket
     if (owner !== account) {
+      console.log("not owner")
       return
     }
     const eventAddress = await ticketContract.eventAddress(ticketId)
@@ -67,13 +68,11 @@ const UserRedeem = ({ ticketId }: Props) => {
   };
 
   return (
+    <>
+    <NavBar />
+    <main className="explore">
     <div>
-      <span>QR Generator</span>
-          <div style={{marginTop:30}}>
-            <TextField onChange={handleChange} style={{width:320}}
-              value={qr} label="Input here to create QR" size="medium" variant="outlined" color="primary"
-             />
-          </div>
+      <span>Generate QR</span>
           <div>
             {
               qr ?
@@ -89,7 +88,8 @@ const UserRedeem = ({ ticketId }: Props) => {
             <button onClick={sign}>Sign</button>
             {/* <button onClick={verify}>Verify</button> */}
       </div>
-
+    </main>
+  </>
   );
 };
 
