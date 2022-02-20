@@ -1,8 +1,8 @@
-import { useNavigate, Link } from "react-router-dom";
-import { useState, FormEventHandler, useEffect } from "react";
-import { create, CID } from "ipfs-http-client";
-import { getWeb3ReactContext, useWeb3React } from "@web3-react/core";
-import { Contract, ContractFactory, ethers } from "ethers";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { create } from "ipfs-http-client";
+import { useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
 import EventABI from "../assets/EventABI.json";
 
 import "../styles/event-create.scss";

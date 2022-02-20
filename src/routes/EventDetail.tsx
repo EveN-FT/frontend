@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useConnector from "../hooks/useConnector";
 
 import NavBar from "../components/NavBar";
 import { Event } from "./Explore";
@@ -13,7 +14,8 @@ import "../styles/event-detail.scss";
 
 const EventDetail = () => {
   const [event, setEvent] = useState<Event | null>(null);
-  const { library, active } = useWeb3React();
+  const { library } = useWeb3React();
+  const { isActive: active } = useConnector();
   const { address } = useParams();
 
   useEffect(() => {

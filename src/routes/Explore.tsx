@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import axios from "axios";
+import useConnector from "../hooks/useConnector";
 
 import EventABI from "../assets/EventABI.json";
 import "../styles/explore.scss";
@@ -28,7 +29,7 @@ export type EventDetail = {
 };
 
 const Explore = () => {
-  const { library } = useWeb3React();
+  const { library } = useConnector();
   const [events, setEvents] = useState<(Event | null)[]>([]);
   const [eventData, setEventData] = useState<EventDetail[]>([]);
 
