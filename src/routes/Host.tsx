@@ -115,9 +115,16 @@ const Host = () => {
                     <div className="event-description">
                       <h1>{event!.name}</h1>
                       <p className="description">{event!.description}</p>
-                      <Link to={`/event/${event!.address}/mint`}>
-                        <button>Mint Tickets</button>
-                      </Link>
+                      <div>
+                        <Link to={`/event/${event!.address}/mint`}>
+                          <button>Mint Tickets</button>
+                        </Link>
+                        <Link to={`/event/${event!.address}/redeem`}>
+                          <button style={{ marginLeft: "20px" }}>
+                            Verify Tickets
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                     <img src={event!.imageUrl} alt={event!.name} />
                   </div>

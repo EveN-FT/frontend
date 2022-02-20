@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 import abi from "../assets/TicketABI.json";
 import { useWeb3React } from "@web3-react/core";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Redeem = () => {
   const { library } = useWeb3React();
@@ -13,6 +14,7 @@ const Redeem = () => {
   const [data, setData] = useState("Hold QR Code Steady and Clear to Scan");
   const [redeemed, setRedeemed] = useState(false);
   const [valid, setValid] = useState(Boolean);
+  const navigate = useNavigate();
   const args = {
     ViewFinder,
     videoId: "video",
@@ -79,6 +81,7 @@ const Redeem = () => {
 
   return (
     <div style={styles.container}>
+      <span className="close" onClick={() => navigate(-1)}></span>
       <QrReader
         {...args}
         onResult={(result, error) => {
