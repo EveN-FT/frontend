@@ -21,6 +21,9 @@ main.home {
 
       img {
         border-radius: 30px;
+        max-height: 40vh;
+        max-width: 40vw;
+        object-fit: cover;
       }
     }
   }
@@ -93,6 +96,7 @@ main.home {
         img {
           height: 100%;
           object-fit: cover;
+          max-width: 100%;
         }
       }
     }

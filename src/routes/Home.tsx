@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-import ticketDesign from "../assets/03-ticketdesign.jpeg";
-import background from "../assets/background.svg";
+import ticketDesign from "../assets/03-ticketdesign.png";
 import "../styles/home.scss";
 
 const Home = () => {
