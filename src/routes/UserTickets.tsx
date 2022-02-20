@@ -81,15 +81,15 @@ const UserTickets = () => {
                     <div className="event-description">
                       <h1>{ticket.name}</h1>
                       <p className="description">{ticket.description}</p>
+                      <Link to={`/user/redeem/${ticket.id}`}>
+                        <button>Redeem Ticket</button>
+                      </Link>
                     </div>
                   </Link>
                   <div className="event-media">
                     <img src={imgUri} alt={ticket.name} />
                   </div>
                 </div>
-                <Link to={`/user/redeem/${ticket.id}`}>
-                  <button>Redeem Ticket</button>
-                </Link>
               </React.Fragment>
             );
           })}
