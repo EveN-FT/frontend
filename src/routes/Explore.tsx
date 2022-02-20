@@ -102,7 +102,6 @@ const Explore = () => {
         time: time,
       };
     } catch (error) {
-      console.log(error);
       return null;
     }
   };
