@@ -13,7 +13,7 @@ import EventABI from "../assets/EventABI.json";
 import "../styles/event-detail.scss";
 
 const EventDetail = () => {
-  const [event, setEvent] = useState<Event | null>();
+  const [event, setEvent] = useState<Event | null>(null);
   const { library, active } = useWeb3React();
   const { address } = useParams();
 
@@ -25,17 +25,17 @@ const EventDetail = () => {
   }, [active]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadContract = async (address: string): Promise<Event | null> => {
-    const contract = new ethers.Contract(address, EventABI, library);
-    const name = await contract.name();
-    const owner = await contract.owner();
-    const metadata = await contract.metadata();
-    var metadataUri = metadata;
-
-    if (metadata.startsWith("ipfs://")) {
-      metadataUri = `https://ipfs.io/ipfs/${metadata.split("/").pop()}`;
-    }
-
     try {
+      const contract = new ethers.Contract(address, EventABI, library);
+      const name = await contract.name();
+      const owner = await contract.owner();
+      const metadata = await contract.metadata();
+      var metadataUri = metadata;
+
+      if (metadata.startsWith("ipfs://")) {
+        metadataUri = `https://ipfs.io/ipfs/${metadata.split("/").pop()}`;
+      }
+
       const { data } = await axios.get(metadataUri);
       var imageUri = data.image.url.ORIGINAL;
 
@@ -76,7 +76,9 @@ const EventDetail = () => {
     <>
       <NavBar />
       <main className="event-detail">
-        {event && (
+        {event === null ? (
+          <p>Loading event data...</p>
+        ) : (
           <>
             <div>
               <h1 className="title">{event.name}</h1>
