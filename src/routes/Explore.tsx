@@ -1,54 +1,83 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { Event } from "./EventDetail";
+import { useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
 
 import eventImage from "../assets/placeholders/event-image.jpeg";
+import EventABI from "../assets/EventABI.json";
 import "../styles/explore.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 
-export const events: Event[] = [
-  {
-    address: "0x37121F74d25262011AdD8cc8D13E6923AEb699d8",
-    name: "Deadmau5",
-    owner:
-      "Deadmau5 is playing his 4 millionth show at the Temple Theater in downtown Denver. Wednesday, February 16th from 5:00pm - 2:00am",
-    metadata: "",
-  },
-  {
-    address: "0x37121F74d25262011AdD8cc8D13E6923AEb699d8",
-    name: "Chainlink Happy Hour",
-    owner:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    metadata: "",
-  },
-];
+export type Event = {
+  address: string;
+  name: string;
+  owner: string;
+  metadata: string;
+};
 
+type EventDetail = {
+  address: string;
+  id: number;
+  ownerAddress: string;
+};
 
-type Contract = {
-    contract_decimals: number;
-    contract_name: string;
-    contract_ticker_symbol: string;
-    contract_address: string;
-    supports_erc: Array<string>
-    logo_url: string;
-    type: string;
-    nft_data: Array<Object>;
-  }
+type EventContract = {
+  name: string;
+  owner: string;
+  metadata: string;
+};
 
 const Explore = () => {
-  const COVALENT_API_BASE = `https://api.covalenthq.com/v1`
-  const CHAIN_ID = 1 //1: ETH Mainnet 137: Polygon Mainnet
-  const testAddr = '0xDDd1d123e53a1aCf61A47ba592E62B240199B1a6' //erc721 for rando nft collection
+  const { library } = useWeb3React();
+  const [events, setEvents] = useState<Event[]>([]);
+  const [eventData, setEventData] = useState<EventDetail[]>([]);
 
-  const [contracts, setContracts] = useState<Contract[]>([]);
   useEffect(() => {
-    const COVALENT_CONTRACT_DETAILS = `${COVALENT_API_BASE}/${CHAIN_ID}/tokens/${testAddr}/nft_metadata/123/?&key=${process.env.REACT_APP_COVALENT_KEY}`
-    axios.get(COVALENT_CONTRACT_DETAILS).then(({ data }) => {
-      setContracts(data.data.items);
-      // console.log('api return', data.data.items)
-    }).catch(console.error)
-  }, []);
+    const apiCall = async () => {
+      const { data } = await api.post("/event/list", {});
+      setEventData(data.events);
+    };
+    apiCall();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const loadData = async () => {
+      setEvents(
+        await Promise.all(
+          eventData.map(async (eventContract) => {
+            const eventContractDetails: EventContract = await loadContract(
+              eventContract.address
+            );
+
+            return {
+              address: eventContract.address,
+              name: eventContractDetails.name,
+              owner: eventContractDetails.owner,
+              metadata: eventContractDetails.metadata,
+            };
+          })
+        )
+      );
+    };
+
+    loadData();
+    console.log(events);
+  }, [eventData]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const loadContract = async (address: string): Promise<EventContract> => {
+    console.log(address);
+    const contract = new ethers.Contract(address, EventABI, library);
+    const name = await contract.name();
+    const owner = await contract.owner();
+    const metadata = await contract.metadata();
+
+    return {
+      name: name,
+      owner: owner,
+      metadata: metadata,
+    };
+  };
 
   return (
     <>
@@ -72,7 +101,6 @@ const Explore = () => {
             </Link>
           );
         })}
-        
       </main>
     </>
   );

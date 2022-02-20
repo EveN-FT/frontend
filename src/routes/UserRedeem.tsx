@@ -2,14 +2,20 @@ import { useState } from 'react';
 import {TextField, TextareaAutosize, Grid} from '@material-ui/core'
 import QRcode from 'qrcode.react';
 import { useWeb3React } from '@web3-react/core';
+import { ethers } from 'ethers';
+import abi from '../assets/TicketABI.json'
 
-const UserRedeem = () => {
+type Props = {
+  ticketId: number
+}
+
+const UserRedeem = ({ ticketId }: Props) => {
   const [qr, setQr] = useState('Tiny Tix');
   const handleChange = (event:any) => {
     setQr(event.target.value);
   };
   const { account, library, chainId } = useWeb3React();
-  // const [signedMessage, setSignedMessage] = useState("");
+  var contract = new ethers.Contract(process.env.REACT_APP_TICKET_ADDRESS!, abi, library)
 
   const sign = async () => {
     const domain = {
@@ -31,15 +37,21 @@ const UserRedeem = () => {
         { name: "ID", type: "uint256" },
       ],
     };
+    const owner = await contract.ownerOf(ticketId)
+    // need to be the owner of the ticket
+    if (owner !== account) {
+      return
+    }
+    const eventAddress = await contract.eventAddress(ticketId)
 
-    // The data to sign
+    // NEED to get the data to sign
     const value = {
       Event: {
         Name: "Kanye West",
-        Address: "0xdcef22fFa720E446fe4EEB1656506B1bB650b343",
+        Address: eventAddress,
       },
       Owner: account,
-      ID: 5,
+      ID: ticketId,
     };
     const signer = await library.getSigner();
     const signedMessage = await signer._signTypedData(domain, types, value);

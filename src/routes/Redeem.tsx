@@ -19,7 +19,7 @@ const Redeem = () => {
       facingMode: 'user',
     },
   };
-  // qr data needs to be in {"owner: "0x2...", "ticketId": 1, "contractAddress": "0xde..." "}
+
   var contract = new ethers.Contract(process.env.REACT_APP_TICKET_ADDRESS!, abi, library)
   const verify = async () => {
     const qrInfo = JSON.parse(data)
