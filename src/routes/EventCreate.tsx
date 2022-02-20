@@ -2,7 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState, FormEventHandler, useEffect } from "react";
 import { create, CID } from "ipfs-http-client";
 import { getWeb3ReactContext, useWeb3React } from "@web3-react/core";
-import { Contract, ethers } from "ethers";
+import { Contract, ContractFactory, ethers } from "ethers";
 import EventABI from "../assets/EventABI.json";
 
 import "../styles/event-create.scss";
@@ -16,11 +16,43 @@ const EventCreate = () => {
   const [city, setCity] = useState("");
   const [datetime, setDatetime] = useState(new Date().toISOString());
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const [bc, setbc] = useState<string>();
-  // console.log(signer);
-  // console.log(bc);
+  const { library } = useWeb3React();
+  const signer = library.getSigner();
+  console.log(signer);
+
+  useEffect(() => {
+    async function getbytecode() {
+      var bc = await library.getCode(
+        "0x537f2A1C7d368FbCAA8395614a482d9ACf4D9d0D"
+      );
+      setbc(bc);
+    }
+    getbytecode();
+  }, []);
+
+  useEffect(() => {
+    async function deployEvent(event: ContractFactory, signer: any) {
+      console.log(signer);
+      var addr = await signer.getAddress();
+      console.log(addr);
+      var res = await event.deploy(
+        //!  this doesn't work
+        addr,
+        "from browser",
+        "me ta da ta"
+      );
+      console.log(res);
+    }
+    if (bc) {
+      const iface = new ethers.utils.Interface(EventABI);
+      var BC = "";
+      var event = new ethers.ContractFactory(iface, bc, signer);
+
+      deployEvent(event, signer);
+    }
+  }, [bc]);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -90,16 +122,6 @@ const EventCreate = () => {
     const metadataUri = `ipfs://ipfs/${metadataCid}`;
   };
 
-  useEffect(() => {
-    async function getbytecode() {
-      var bc = await provider.getCode(
-        "0x537f2A1C7d368FbCAA8395614a482d9ACf4D9d0D"
-      );
-      setbc(bc);
-    }
-    getbytecode();
-  }, []);
-
   const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) {
       return;
@@ -107,35 +129,6 @@ const EventCreate = () => {
 
     setImage(event.target.files);
   };
-
-  useEffect(() => {
-    async function getbytecode() {
-      var bc = await provider.getCode(
-        "0x537f2A1C7d368FbCAA8395614a482d9ACf4D9d0D"
-      );
-      setbc(bc);
-    }
-    getbytecode();
-  }, []);
-
-  useEffect(() => {
-    async function deployEvent() {
-      console.log(signer);
-      var res = await event.deploy(
-        //!  this doesn't work
-        signer._address,
-        "from browser",
-        "me ta da ta"
-      );
-      console.log(res);
-    }
-    if (bc) {
-      const iface = new ethers.utils.Interface(EventABI);
-      var event = new ethers.ContractFactory(iface, bc, signer);
-
-      deployEvent();
-    }
-  }, [bc]);
 
   return (
     <main className="create-event">
