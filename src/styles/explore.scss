@@ -8,10 +8,13 @@ main.explore {
   max-width: 1000px;
   width: 100%;
 
+  & > * {
+    width: 100%;
+  }
+
   .event-hero {
     display: flex;
-    width: 100%;
-    max-width: 100%;
+    min-width: 100%;
     min-height: 300px;
     transition: transform 0.2s ease-in;
     border-radius: 30px;

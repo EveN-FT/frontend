@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
+import axios from "axios";
 
 import eventImage from "../assets/placeholders/event-image.jpeg";
 import EventABI from "../assets/EventABI.json";
@@ -12,8 +13,13 @@ import api from "../api";
 export type Event = {
   address: string;
   name: string;
+  description: string;
   owner: string;
   metadata: string;
+  imageUrl: string;
+  venue: string;
+  city: string;
+  time: string;
 };
 
 type EventDetail = {
@@ -22,15 +28,9 @@ type EventDetail = {
   ownerAddress: string;
 };
 
-type EventContract = {
-  name: string;
-  owner: string;
-  metadata: string;
-};
-
 const Explore = () => {
   const { library } = useWeb3React();
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<(Event | null)[]>([]);
   const [eventData, setEventData] = useState<EventDetail[]>([]);
 
   useEffect(() => {
@@ -46,61 +46,92 @@ const Explore = () => {
       setEvents(
         await Promise.all(
           eventData.map(async (eventContract) => {
-            const eventContractDetails: EventContract = await loadContract(
+            const event: Event | null = await loadContract(
               eventContract.address
             );
 
-            return {
-              address: eventContract.address,
-              name: eventContractDetails.name,
-              owner: eventContractDetails.owner,
-              metadata: eventContractDetails.metadata,
-            };
+            return event;
           })
         )
       );
     };
 
     loadData();
-    console.log(events);
   }, [eventData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const loadContract = async (address: string): Promise<EventContract> => {
-    console.log(address);
+  const loadContract = async (address: string): Promise<Event | null> => {
     const contract = new ethers.Contract(address, EventABI, library);
     const name = await contract.name();
     const owner = await contract.owner();
     const metadata = await contract.metadata();
+    var metadataUri = metadata;
 
-    return {
-      name: name,
-      owner: owner,
-      metadata: metadata,
-    };
+    if (metadata.startsWith("ipfs://")) {
+      metadataUri = `https://ipfs.io/ipfs/${metadata.split("/").pop()}`;
+    }
+
+    try {
+      const { data } = await axios.get(metadataUri);
+      var imageUri = data.image.url.ORIGINAL;
+
+      if (imageUri.startsWith("ipfs://")) {
+        imageUri = `https://ipfs.io/ipfs/${imageUri.split("/").pop()}`;
+      }
+
+      const description = data.description;
+      const attributes = data.attributes;
+      const venue = attributes.find(
+        (element: { key: string; value: string }) => element.key === "/venue"
+      ).value;
+      const city = attributes.find(
+        (element: { key: string; value: string }) => element.key === "/city"
+      ).value;
+      const time = attributes.find(
+        (element: { key: string; value: string }) => element.key === "/time"
+      ).value;
+
+      return {
+        address: address,
+        name: name,
+        description: description,
+        owner: owner,
+        metadata: metadata,
+        imageUrl: imageUri,
+        venue: venue,
+        city: city,
+        time: time,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   };
 
   return (
     <>
       <NavBar />
       <main className="explore">
-        {events.map((event) => {
-          return (
-            <Link to={`/event/${event.address}`}>
-              <div className="event-hero">
-                <div className="event-description">
-                  <h1>{event.name}</h1>
-                  <p className="description">{event.owner}</p>
-                  <Link to={`/event/${event.address}/tickets`}>
-                    <button>Buy Tickets</button>
-                  </Link>
+        {events
+          .filter((event) => event !== null)
+          .map((event, key) => {
+            console.log(event);
+            return (
+              <Link to={`/event/${event!.address}`} key={key}>
+                <div className="event-hero">
+                  <div className="event-description">
+                    <h1>{event!.name}</h1>
+                    <p className="description">{event!.description}</p>
+                    <Link to={`/event/${event!.address}/tickets`}>
+                      <button>Buy Tickets</button>
+                    </Link>
+                  </div>
+                  <div className="event-media">
+                    <img src={event!.imageUrl} alt={event!.name} />
+                  </div>
                 </div>
-                <div className="event-media">
-                  <img src={eventImage} alt={event.name} />
-                </div>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })}
       </main>
     </>
   );
