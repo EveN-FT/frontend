@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useWeb3React } from "@web3-react/core";
-import "../styles/explore.scss";
+import "../styles/wallet.scss";
 import { Event } from "../routes/Explore";
 import { useNFTBalances } from "react-moralis";
+import { useNavigate } from "react-router-dom";
 
 export type Ticket = {
   eventAddress?: string;
@@ -26,7 +27,8 @@ export type TicketMetadata = {
 };
 
 const UserTickets = () => {
-  const { account, chainId } = useWeb3React();
+  let navigate = useNavigate();
+  const { account, chainId, deactivate } = useWeb3React();
   const [tickets, setTickets] = useState<TicketMetadata[]>([]);
   const { getNFTBalances } = useNFTBalances();
 
@@ -65,8 +67,17 @@ const UserTickets = () => {
   return (
     <>
       <NavBar />
-      <main className="explore">
-        {tickets &&
+      <main className="wallet">
+        <button
+          className="red"
+          onClick={() => {
+            deactivate();
+            navigate("/");
+          }}
+        >
+          Disconnect
+        </button>
+        {tickets.length > 0 ? (
           tickets.map((ticket, key) => {
             return (
               <React.Fragment key={key}>
@@ -86,7 +97,10 @@ const UserTickets = () => {
                 </Link>
               </React.Fragment>
             );
-          })}
+          })
+        ) : (
+          <p>No tickets yet!</p>
+        )}
       </main>
     </>
   );
