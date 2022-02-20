@@ -119,9 +119,7 @@ const Host = () => {
                         <button>Mint Tickets</button>
                       </Link>
                     </div>
-                    <div className="event-media">
-                      <img src={event!.imageUrl} alt={event!.name} />
-                    </div>
+                    <img src={event!.imageUrl} alt={event!.name} />
                   </div>
                 </Link>
               );
