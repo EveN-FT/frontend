@@ -110,26 +110,30 @@ const Explore = () => {
     <>
       <NavBar />
       <main className="explore">
-        {events
-          .filter((event) => event !== null)
-          .map((event, key) => {
-            return (
-              <Link to={`/event/${event!.address}`} key={key}>
-                <div className="event-hero">
-                  <div className="event-description">
-                    <h1>{event!.name}</h1>
-                    <p className="description">{event!.description}</p>
-                    <Link to={`/event/${event!.address}/tickets`}>
-                      <button>Buy Tickets</button>
-                    </Link>
+        {events.length < 1 ? (
+          <p>Loading events...</p>
+        ) : (
+          events
+            .filter((event) => event !== null)
+            .map((event, key) => {
+              return (
+                <Link to={`/event/${event!.address}`} key={key}>
+                  <div className="event-hero">
+                    <div className="event-description">
+                      <h1>{event!.name}</h1>
+                      <p className="description">{event!.description}</p>
+                      <Link to={`/event/${event!.address}/tickets`}>
+                        <button>Buy Tickets</button>
+                      </Link>
+                    </div>
+                    <div className="event-media">
+                      <img src={event!.imageUrl} alt={event!.name} />
+                    </div>
                   </div>
-                  <div className="event-media">
-                    <img src={event!.imageUrl} alt={event!.name} />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })
+        )}
       </main>
     </>
   );
