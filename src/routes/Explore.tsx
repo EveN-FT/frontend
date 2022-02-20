@@ -13,13 +13,13 @@ import api from "../api";
 export type Event = {
   address: string;
   name: string;
-  description: string;
-  owner: string;
-  metadata: string;
-  imageUrl: string;
-  venue: string;
-  city: string;
-  time: string;
+  description?: string;
+  owner?: string;
+  metadata?: string;
+  imageUrl?: string;
+  venue?: string;
+  city?: string;
+  time?: string;
 };
 
 type EventDetail = {
