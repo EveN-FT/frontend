@@ -1,19 +1,12 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
+import { Event } from "./Explore";
 
 import metadata from "../assets/placeholders/metadata.json";
 import "../styles/event-detail.scss";
-
-export type Event = {
-  address: string;
-  name: string;
-  owner: string;
-  metadata: string;
-};
 
 const EventDetail = () => {
   const { address } = useParams();
