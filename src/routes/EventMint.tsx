@@ -107,12 +107,11 @@ const EventMint = () => {
       const loadContract = async () => {
         var addr = await signer.getAddress();
         const contractShape = new ethers.Contract(
-          "0x8Ba781900310C6ecaFc683f1e1385E26E6bacC65",
+          "0xED71150645a380b02f12434D6531c4EA21c0D0EC",
           TicketABI,
           library
         );
         var contract = contractShape.connect(signer);
-        console.log(contract);
         var res = await contract.mint(
           eventAddress,
           metadataUri,
@@ -120,13 +119,15 @@ const EventMint = () => {
           parseInt(price)
         );
         var { events } = await res.wait();
-        var ids;
+        var ids = [];
 
-        // for (var i = 0; i < events.length; i++) {ids.push(Number(events.)))}
-        // await axios.post(
-        //   "https://beta-even-ft-backend.onrender.com/api/v1/ticket/create",
-        //   { address: addr, ticketId: ids }
-        // );
+        for (var i = 0; i < events.length; i++) {
+          ids.push(Number(events[i].args.tokenId._hex));
+        }
+        await axios.post(
+          "https://beta-even-ft-backend.onrender.com/api/v1/ticket/create",
+          { address: addr, ticketIds: ids }
+        );
       };
       await loadContract();
     }
