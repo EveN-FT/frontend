@@ -23,7 +23,6 @@ const EventCreate = () => {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const { library } = useWeb3React();
   const signer = library.getSigner();
-  console.log(signer);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
