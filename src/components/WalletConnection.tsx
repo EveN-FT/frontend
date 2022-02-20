@@ -5,12 +5,13 @@ import connectors from "./wallet/connectors";
 import "../styles/navbar.scss";
 import "../styles/wallet-modal.scss";
 import useConnector from "../hooks/useConnector";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const WalletConnection = () => {
   const [openModal, setOpenModal] = useState(false);
   const { isActive, account, disconnect, createConnectHandler } =
     useConnector();
+  const location = useLocation();
 
   // function createConnectHandler(connectorId: string) {
   //   return async () => {
@@ -28,6 +29,10 @@ const WalletConnection = () => {
   //     }
   //   };
   // }
+
+  if (location.pathname === "/wallet") {
+    return null;
+  }
 
   if (isActive) {
     //TODO: remove button and add icon for 'view wallet'

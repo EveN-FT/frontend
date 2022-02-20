@@ -109,6 +109,7 @@ const Explore = () => {
     <>
       <NavBar />
       <main className="explore">
+        <h1>Upcoming events</h1>
         {events.length < 1 ? (
           <p>Loading events...</p>
         ) : (

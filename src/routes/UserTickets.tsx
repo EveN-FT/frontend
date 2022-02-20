@@ -66,6 +66,7 @@ const UserTickets = () => {
     <>
       <NavBar />
       <main className="explore">
+        <h1>Your tickets</h1>
         {tickets &&
           tickets.map((ticket, key) => {
             var imgUri = ticket.image;
