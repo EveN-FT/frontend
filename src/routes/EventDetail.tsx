@@ -80,7 +80,7 @@ const EventDetail = () => {
           <>
             <div>
               <h1 className="title">{event.name}</h1>
-              <p className="description">{event.owner}</p>
+              <p className="description">{event.description}</p>
               <table>
                 <tbody>
                   <tr>
