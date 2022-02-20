@@ -12,6 +12,10 @@ main.explore {
   }
 
   .event-hero {
+    .event-media {
+      display: flex;
+      justify-content: center;
+    }
     display: flex;
     min-width: 100%;
     min-height: 300px;
@@ -100,6 +104,7 @@ main.explore {
       flex-direction: column-reverse;
 
       img {
+        max-width: unset;
         margin-bottom: 20px;
       }
     }
@@ -111,6 +116,9 @@ main.explore {
   main.explore {
     .event-hero {
       flex-direction: column-reverse;
+      img {
+        max-width: unset;
+      }
 
       h1 {
         font-size: 2.7rem !important;
