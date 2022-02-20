@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {TextField, TextareaAutosize, Grid} from '@material-ui/core'
 import QRcode from 'qrcode.react';
 import { useWeb3React } from '@web3-react/core';
-import { ethers } from 'ethers';
 
 const UserRedeem = () => {
   const [qr, setQr] = useState('Tiny Tix');
@@ -10,16 +9,14 @@ const UserRedeem = () => {
     setQr(event.target.value);
   };
   const { account, library, chainId } = useWeb3React();
-  const web3 = useWeb3React();
-  const [message, setMessage] = useState("test");
-  const [signedMessage, setSignedMessage] = useState("");
+  // const [signedMessage, setSignedMessage] = useState("");
 
   const sign = async () => {
     const domain = {
       name: "Tiny Tix",
       version: "1",
       chainId: chainId,
-      verifyingContract: "0xb628a2038Bb4BF52486ffDD8dd2Eb07e73ddA5dA",
+      verifyingContract: process.env.REACT_APP_TICKET_ADDRESS!,
     };
 
     // The named list of all type definitions
@@ -38,16 +35,14 @@ const UserRedeem = () => {
     // The data to sign
     const value = {
       Event: {
-        Name: "Deadmau5",
-        Address: "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826",
+        Name: "Kanye West",
+        Address: "0xdcef22fFa720E446fe4EEB1656506B1bB650b343",
       },
       Owner: account,
-      ID: 2,
+      ID: 5,
     };
     const signer = await library.getSigner();
     const signedMessage = await signer._signTypedData(domain, types, value);
-    setSignedMessage(signedMessage);
-    console.log(signedMessage);
     setQr(JSON.stringify({
       "domain": domain,
       "types": types,
@@ -55,23 +50,6 @@ const UserRedeem = () => {
       "signedMessage": signedMessage
     }))
   };
-
-  const verify = async () => {
-    const qrInfo = JSON.parse(qr)
-    const verified = ethers.utils.verifyTypedData(
-      qrInfo.domain,
-      qrInfo.types,
-      qrInfo.value,
-      qrInfo.signedMessage
-    );
-    console.log(verified);
-    // get owneraddres qrInfo.value.ID ownerOf(tokenId)
-    if (verified === qrInfo.value.ID) {
-      console.log("verified")
-    }
-  };
-  // we still to grab ticket data
-  // ticket contract address, ticket id, owner address
 
   return (
     <div>
@@ -109,7 +87,7 @@ const UserRedeem = () => {
               }
             </div>
             <button onClick={sign}>Sign</button>
-            <button onClick={verify}>Verify</button>
+            {/* <button onClick={verify}>Verify</button> */}
       </div>
 
   );
