@@ -5,7 +5,6 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import axios from "axios";
 
-import eventImage from "../assets/placeholders/event-image.jpeg";
 import EventABI from "../assets/EventABI.json";
 import "../styles/explore.scss";
 import api from "../api";
@@ -22,7 +21,7 @@ export type Event = {
   time?: string;
 };
 
-type EventDetail = {
+export type EventDetail = {
   address: string;
   id: number;
   ownerAddress: string;

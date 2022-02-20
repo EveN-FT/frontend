@@ -7,7 +7,6 @@ import axios from "axios";
 
 import NavBar from "../components/NavBar";
 import { Event } from "./Explore";
-import api from "../api";
 
 import EventABI from "../assets/EventABI.json";
 import "../styles/event-detail.scss";
