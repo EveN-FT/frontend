@@ -90,21 +90,6 @@ const Host = () => {
       return null;
     }
   };
-  // const { library } = useWeb3React();
-  // const signer = library.getSigner();
-  // const [realEvents, setRealEvents] = useState<Event[]>();
-
-  // useEffect(() => {
-  //   async function myEvents() {
-  //     var addr = await signer.getAddress();
-  //     var { data } = await axios.post(
-  //       "https://beta-even-ft-backend.onrender.com/api/v1/event/list-by-owner",
-  //       { ownderAddress: addr }
-  //     );
-  //     setRealEvents(data);
-  //   }
-  //   myEvents();
-  // }, []);
 
   return (
     <>
@@ -121,7 +106,7 @@ const Host = () => {
         ) : (
           events
             .filter((event) => {
-              return event !== null && event.address === account;
+              return event !== null && event.owner === account;
             })
             .map((event, key) => {
               return (
