@@ -38,6 +38,7 @@ const EventMint = () => {
   const [type, setType] = useState("");
   const [desc, setDesc] = useState("");
   const [amount, setAmount] = useState("");
+  const [price, setPrice] = useState("");
   const [image, setImage] = useState<FileList | null>(null);
   const { library } = useWeb3React();
   const signer = library.getSigner();
@@ -104,30 +105,30 @@ const EventMint = () => {
 
     async function mintTickets() {
       const loadContract = async () => {
+        var addr = await signer.getAddress();
         const contractShape = new ethers.Contract(
-          "0xb628a2038bb4bf52486ffdd8dd2eb07e73dda5da",
+          "0x8Ba781900310C6ecaFc683f1e1385E26E6bacC65",
           TicketABI,
           library
         );
         var contract = contractShape.connect(signer);
         console.log(contract);
-        var res = await contract.mintGA(
+        var res = await contract.mint(
           eventAddress,
           metadataUri,
-          parseInt(amount)
+          parseInt(amount),
+          parseInt(price)
         );
-        var rec = await res.wait();
-        console.log(res);
-        console.log(rec);
+        var { events } = await res.wait();
+        var ids;
+
+        // for (var i = 0; i < events.length; i++) {ids.push(Number(events.)))}
+        // await axios.post(
+        //   "https://beta-even-ft-backend.onrender.com/api/v1/ticket/create",
+        //   { address: addr, ticketId: ids }
+        // );
       };
       await loadContract();
-      // needs to be locally compiled bytecode for some reason
-      // var event = new ethers.ContractFactory(EventABI, BC, signer);
-      // var res = await event.deploy(addr, title, metadataUri);
-      // await axios.post(
-      //   "https://beta-even-ft-backend.onrender.com/api/v1/event/create",
-      //   { address: res.address, ownerAddress: addr }
-      // );
     }
     mintTickets();
   };
@@ -160,10 +161,19 @@ const EventMint = () => {
         <textarea
           id="amount"
           name="amount"
-          placeholder="Ticket amount"
+          placeholder="Amount of tickets"
           rows={1}
           maxLength={3}
           onChange={(e) => setAmount(e.target.value)}
+        />
+        <label htmlFor="price">Price in Gwei</label>
+        <textarea
+          id="price"
+          name="price"
+          placeholder="Ticket price in gwei"
+          rows={1}
+          maxLength={3}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <label htmlFor="image" className="label-show">
           Ticket Image
